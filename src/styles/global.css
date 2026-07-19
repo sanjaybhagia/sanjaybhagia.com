@@ -222,6 +222,14 @@ article.post .meta {
   margin: 0 0 0.75rem;
 }
 
+.post-hero {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  margin-top: 1.5rem;
+}
+
 .prose { margin-top: 1.5rem; }
 .prose h1, .prose h2, .prose h3, .prose h4 {
   font-family: var(--display);

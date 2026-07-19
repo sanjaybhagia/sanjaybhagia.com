@@ -33,6 +33,17 @@ export async function getStaticPaths() {
 const { post, newer, older, related } = Astro.props;
 const { Content, headings } = await render(post);
 
+let heroDims: { width?: number; height?: number } = {};
+if (post.data.image?.startsWith('/images/')) {
+  const fs = await import('node:fs');
+  const { imageSize } = await import('image-size');
+  try {
+    heroDims = imageSize(fs.readFileSync(`./public${post.data.image}`));
+  } catch {
+    // unknown dimensions: render unsized
+  }
+}
+
 const words = post.body ? post.body.split(/\s+/).length : 0;
 const minutes = Math.max(1, Math.round(words / 200));
 const dateLabel = post.data.date.toLocaleDateString('en-AU', {
@@ -74,6 +85,16 @@ const postLd = {
           <li><a href={`/tags/${tagSlug(tag)}/`}>{tag}</a></li>
         ))}
       </ul>
+    )}
+    {post.data.image && (
+      <img
+        class="post-hero"
+        src={post.data.image}
+        alt=""
+        width={heroDims.width}
+        height={heroDims.height}
+        fetchpriority="high"
+      />
     )}
     {TOC_PILOT.includes(post.id) && <Toc headings={headings} />}
     <div class="prose">

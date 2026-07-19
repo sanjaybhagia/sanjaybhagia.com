@@ -44,7 +44,10 @@ body {
   background: var(--bg);
 }
 
-.shell { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem; }
+.shell { max-width: 64rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* Narrow, centered column for pure-prose pages (about, tools, now…) */
+.page-narrow { max-width: 46rem; margin-inline: auto; }
 
 header.site {
   display: flex;
@@ -212,6 +215,31 @@ section { margin-top: 3.25rem; }
 }
 .tags a:hover { filter: brightness(0.95); }
 .tag-count { color: var(--muted); }
+
+/* Posts: readable column, centered; on wide screens the TOC moves into
+   a sticky sidebar so the extra width does something useful. */
+article.post {
+  display: grid;
+  grid-template-columns: minmax(0, 46rem);
+  justify-content: center;
+  column-gap: 3rem;
+}
+.post-aside { display: none; }
+@media (min-width: 1120px) {
+  article.post.has-toc { grid-template-columns: minmax(0, 46rem) 16rem; }
+  article.post.has-toc .post-aside {
+    display: block;
+    grid-column: 2;
+  }
+  article.post.has-toc .toc-inline { display: none; }
+  .post-aside .toc {
+    position: sticky;
+    top: 2rem;
+    margin-top: 0;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+}
 
 article.post .meta {
   font-family: var(--mono);

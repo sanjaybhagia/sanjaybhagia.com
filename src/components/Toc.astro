@@ -3,13 +3,14 @@ import type { MarkdownHeading } from 'astro';
 
 interface Props {
   headings: MarkdownHeading[];
+  class?: string;
 }
 
-const { headings } = Astro.props;
+const { headings, class: className } = Astro.props;
 const items = headings.filter((h) => h.depth >= 1 && h.depth <= 3);
 ---
 {items.length > 2 && (
-  <nav class="toc" aria-label="Contents" data-pagefind-ignore>
+  <nav class={`toc ${className ?? ''}`} aria-label="Contents" data-pagefind-ignore>
     <p class="eyebrow">Contents</p>
     <ul>
       {items.map((h) => (

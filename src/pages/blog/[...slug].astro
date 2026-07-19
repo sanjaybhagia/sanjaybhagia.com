@@ -30,6 +30,8 @@ export async function getStaticPaths() {
 const { post, newer, older, related } = Astro.props;
 const { Content, headings } = await render(post);
 
+const hasToc = headings.filter((h) => h.depth >= 1 && h.depth <= 3).length > 2;
+
 let heroDims: { width?: number; height?: number } = {};
 if (post.data.image?.startsWith('/images/')) {
   const fs = await import('node:fs');
@@ -71,7 +73,8 @@ const postLd = {
   image={post.data.image ?? `/og/${post.id}.png`}
 >
   <script type="application/ld+json" set:html={JSON.stringify(postLd)} />
-  <article class="post" data-pagefind-body>
+  <article class:list={['post', { 'has-toc': hasToc }]} data-pagefind-body>
+    <div class="post-body">
     <p class="meta">
       <time datetime={post.data.date.toISOString()}>{dateLabel}</time> · {minutes} min read
     </p>
@@ -93,7 +96,7 @@ const postLd = {
         fetchpriority="high"
       />
     )}
-    <Toc headings={headings} />
+    <Toc headings={headings} class="toc-inline" />
     <div class="prose">
       <Content />
     </div>
@@ -108,5 +111,11 @@ const postLd = {
       </section>
     )}
     <Comments />
+    </div>
+    {hasToc && (
+      <aside class="post-aside">
+        <Toc headings={headings} />
+      </aside>
+    )}
   </article>
 </Base>

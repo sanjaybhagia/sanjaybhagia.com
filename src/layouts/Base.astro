@@ -26,6 +26,12 @@ const current = (prefix: string) =>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (() => {
+        const t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t;
+      })();
+    </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(path, Astro.site)} />
@@ -51,6 +57,7 @@ const current = (prefix: string) =>
           <a href="/tools" aria-current={current('/tools')}>Tools</a>
           <a href="/about" aria-current={current('/about')}>About</a>
           <a href="/search" aria-current={current('/search')}>Search</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
         </nav>
       </header>
       <main>
@@ -68,5 +75,29 @@ const current = (prefix: string) =>
         </span>
       </footer>
     </div>
+    <script is:inline>
+      document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+        const cur =
+          document.documentElement.dataset.theme ??
+          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
+
+      document.querySelectorAll('.prose pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-code';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', async () => {
+          const code = pre.querySelector('code');
+          await navigator.clipboard.writeText((code ?? pre).innerText);
+          btn.textContent = 'Copied';
+          setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+        });
+        pre.appendChild(btn);
+      });
+    </script>
   </body>
 </html>

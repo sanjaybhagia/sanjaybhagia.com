@@ -3,8 +3,12 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Comments from '../../components/Comments.astro';
 import PostList from '../../components/PostList.astro';
+import Toc from '../../components/Toc.astro';
 import { tagSlug } from '../../lib/tags';
 import { getPublishedPosts } from '../../lib/posts';
+
+// TOC pilot: one post for review before rolling out to all long posts.
+const TOC_PILOT = ['handling-order-processing-with-azure-api-servicebus-topics'];
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
@@ -27,7 +31,7 @@ export async function getStaticPaths() {
 }
 
 const { post, newer, older, related } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 const words = post.body ? post.body.split(/\s+/).length : 0;
 const minutes = Math.max(1, Math.round(words / 200));
@@ -71,6 +75,7 @@ const postLd = {
         ))}
       </ul>
     )}
+    {TOC_PILOT.includes(post.id) && <Toc headings={headings} />}
     <div class="prose">
       <Content />
     </div>

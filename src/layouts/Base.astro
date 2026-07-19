@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Subscribe from '../components/Subscribe.astro';
 
 interface Props {
   title?: string;
@@ -50,6 +51,7 @@ const current = (prefix: string) =>
       </header>
       <main>
         <slot />
+        <Subscribe />
       </main>
       <footer class="site">
         <span>© Sanjay Bhagia · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>

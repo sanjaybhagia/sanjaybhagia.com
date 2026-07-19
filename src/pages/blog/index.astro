@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PostList from '../../components/PostList.astro';
-import Subscribe from '../../components/Subscribe.astro';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -30,6 +29,4 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
       <PostList posts={byYear.get(year)!} dateFormat="month" />
     </>
   ))}
-
-  <Subscribe />
 </Base>

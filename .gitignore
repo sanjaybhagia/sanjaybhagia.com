@@ -13,3 +13,6 @@ nuget.exe
 node_modules/
 dist/
 .astro/
+
+# secrets
+.env

@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const recent = posts.slice(0, 4);
+---
+<Base>
+  <p class="eyebrow">.NET · Azure · DevOps · Sydney</p>
+  <h1>Building things, writing them down.</h1>
+  <p class="lede">
+    I'm Sanjay — a software engineer in Sydney. This is where I share what I learn:
+    .NET, Azure, CI/CD, and the occasional life lesson from my dog.
+  </p>
+
+  <section aria-labelledby="apps-h">
+    <p class="eyebrow" id="apps-h">Apps &amp; projects</p>
+    <div class="cards">
+      <div class="card">
+        <span class="kind">Course</span>
+        <h3><a href="https://www.educative.io/courses/cloud-computing-fundamentals">Cloud Computing Fundamentals</a></h3>
+        <p>My interactive course on Educative — the what, why and how of cloud computing.</p>
+      </div>
+      <div class="card">
+        <span class="kind">Notes</span>
+        <h3><a href="/assets/220-studynotes">AZ-220 Study Notes</a></h3>
+        <p>The study notes that got me through the Azure IoT Developer exam.</p>
+      </div>
+      <div class="card">
+        <span class="kind">Site</span>
+        <h3><a href="https://github.com/sanjaybhagia/sanjaybhagia.github.io">This site</a></h3>
+        <p>Open source. Astro, hosted free on Cloudflare, published by pushing markdown to GitHub.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="recent-h">
+    <p class="eyebrow" id="recent-h">Recent writing</p>
+    <PostList posts={recent} />
+    <p class="more-link"><a class="quiet" href="/blog">All posts →</a></p>
+  </section>
+</Base>

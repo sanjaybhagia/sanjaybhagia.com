@@ -1,0 +1,24 @@
+---
+// Newsletter signup via Kit (kit.com, free ≤10k subscribers).
+// To enable: create a Kit account + inline form, put its form ID here.
+const KIT_FORM_ID = '';
+---
+{KIT_FORM_ID && (
+  <section aria-labelledby="subscribe-h">
+    <p class="eyebrow" id="subscribe-h">Subscribe</p>
+    <form
+      class="subscribe"
+      action={`https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`}
+      method="post"
+    >
+      <input
+        type="email"
+        name="email_address"
+        placeholder="you@example.com"
+        aria-label="Email address"
+        required
+      />
+      <button type="submit">Get new posts</button>
+    </form>
+  </section>
+)}

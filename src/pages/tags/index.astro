@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { collectTags } from '../../lib/tags';
+
+const posts = await getCollection('blog');
+const tags = [...collectTags(posts).entries()].sort(
+  (a, b) => b[1].posts.length - a[1].posts.length || a[1].name.localeCompare(b[1].name),
+);
+---
+<Base title="Tags" description="Browse posts by topic.">
+  <p class="eyebrow">Topics</p>
+  <h1>Tags</h1>
+  <ul class="tags">
+    {tags.map(([slug, { name, posts }]) => (
+      <li>
+        <a href={`/tags/${slug}`}>{name} <span class="tag-count">({posts.length})</span></a>
+      </li>
+    ))}
+  </ul>
+</Base>

@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Comments from '../../components/Comments.astro';
+import { tagSlug } from '../../lib/tags';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1] ?? null, older: posts[i + 1] ?? null },
+  }));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+
+const words = post.body ? post.body.split(/\s+/).length : 0;
+const minutes = Math.max(1, Math.round(words / 200));
+const dateLabel = post.data.date.toLocaleDateString('en-AU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+<Base title={post.data.title} description={post.data.description} image={post.data.image}>
+  <article class="post">
+    <p class="meta">
+      <time datetime={post.data.date.toISOString()}>{dateLabel}</time> · {minutes} min read
+    </p>
+    <h1>{post.data.title}</h1>
+    {post.data.tags.length > 0 && (
+      <ul class="tags">
+        {post.data.tags.map((tag) => (
+          <li><a href={`/tags/${tagSlug(tag)}`}>{tag}</a></li>
+        ))}
+      </ul>
+    )}
+    <div class="prose">
+      <Content />
+    </div>
+    <nav class="prevnext" aria-label="Adjacent posts">
+      {older ? <a class="quiet" href={`/blog/${older.id}`}>← {older.data.title}</a> : <span></span>}
+      {newer ? <a class="quiet" href={`/blog/${newer.id}`}>{newer.data.title} →</a> : <span></span>}
+    </nav>
+    <Comments />
+  </article>
+</Base>

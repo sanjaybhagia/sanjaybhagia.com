@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  dateFormat?: 'year' | 'month';
+}
+
+const { posts, dateFormat = 'year' } = Astro.props;
+
+const label = (d: Date) =>
+  dateFormat === 'year'
+    ? String(d.getUTCFullYear())
+    : d.toLocaleDateString('en-AU', { month: 'short', timeZone: 'UTC' });
+---
+<ul class="post-list">
+  {posts.map((post) => (
+    <li>
+      <time datetime={post.data.date.toISOString()}>{label(post.data.date)}</time>
+      <a href={`/blog/${post.id}`}>{post.data.title}</a>
+    </li>
+  ))}
+</ul>

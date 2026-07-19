@@ -1,12 +1,19 @@
 {
-    "name": "bhagias-blog",
-    "version": "0.0.1",    
-    "license": "MIT",    
+    "name": "sanjaybhagia.com",
+    "type": "module",
+    "version": "1.0.0",
+    "private": true,
     "scripts": {
-        "postinstall": "dotnet tool install -g Wyam.Tool",
-        "build" : "wyam --recipe Blog --theme CleanBlog --update-packages",
-        "start": "wyam --recipe Blog --theme CleanBlog --update-packages --preview --watch",
-        "predeploy": "npm run build"
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview"
+    },
+    "dependencies": {
+        "@astrojs/rss": "^4.0.0",
+        "@astrojs/sitemap": "^3.0.0",
+        "astro": "^5.0.0"
+    },
+    "devDependencies": {
+        "gray-matter": "^4.0.3"
     }
-  }
-  
+}

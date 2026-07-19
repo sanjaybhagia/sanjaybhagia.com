@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import Subscribe from '../../components/Subscribe.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const byYear = new Map<number, typeof posts>();
+for (const post of posts) {
+  const year = post.data.date.getUTCFullYear();
+  if (!byYear.has(year)) byYear.set(year, []);
+  byYear.get(year)!.push(post);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+---
+<Base title="Blog" description="Everything I've written since 2012 — .NET, Azure, Pulumi, DevOps, and the odd reflection on life.">
+  <p class="eyebrow">Writing</p>
+  <h1>The blog</h1>
+  <p class="lede">
+    Everything I've written since 2012 — from SharePoint archaeology to Azure,
+    Pulumi, and the odd reflection on life.
+  </p>
+
+  {years.map((year) => (
+    <>
+      <p class="year">{year}</p>
+      <PostList posts={byYear.get(year)!} dateFormat="month" />
+    </>
+  ))}
+
+  <Subscribe />
+</Base>

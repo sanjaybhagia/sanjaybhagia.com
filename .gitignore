@@ -8,3 +8,8 @@ nuget.exe
 /*.packages.xml
 /*.wyam.hash
 /*.wyam.dll
+
+# Astro
+node_modules/
+dist/
+.astro/

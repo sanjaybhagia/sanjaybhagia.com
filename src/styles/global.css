@@ -170,6 +170,13 @@ section { margin-top: 3.25rem; }
 .card h3 a { color: var(--ink); text-decoration: none; }
 .card:hover h3 a { color: var(--accent); }
 .card p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
+.card .card-links {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
 
 .post-list { list-style: none; margin: 0; padding: 0; }
 .post-list li {

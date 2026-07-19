@@ -10,6 +10,6 @@ description: What I'm focused on right now.
 - Building [Calendar on Your Wall](/apps/calendar-on-your-wall/) — printable yearly calendars with your events on them
 - Rebuilt this site from a deprecated Wyam setup to Astro on Cloudflare — publishing is now fully agent-driven
 - Day job: building the Perspio IoT platform at [Inauro](https://www.inauro.io)
-- Away from the keyboard: books, movies, lifting weights, running, and cooking
+- Away from the keyboard: books, movies, lifting weights, running, cooking — and lately, driving agents from my iPhone 🤷
 
 <small>*This is a [now page](https://nownownow.com/about) — a snapshot of what I'm up to, updated when things change.*</small>

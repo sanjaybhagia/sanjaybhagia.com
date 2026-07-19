@@ -170,6 +170,19 @@ section { margin-top: 3.25rem; }
 .card h3 a { color: var(--ink); text-decoration: none; }
 .card:hover h3 a { color: var(--accent); }
 .card p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
+.card .card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.card .card-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
 .card .card-links {
   margin-top: 0.5rem;
   display: flex;
@@ -438,6 +451,20 @@ form.subscribe button {
 form.subscribe button:hover { filter: brightness(1.08); }
 
 .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem;
+}
+.shots img,
+.shot-wide img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.shot-wide { margin: 0; }
 .btn {
   display: inline-block;
   font-family: var(--mono);

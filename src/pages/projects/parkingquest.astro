@@ -1,5 +1,13 @@
 ---
+import fs from 'node:fs';
+import { imageSize } from 'image-size';
 import Base from '../../layouts/Base.astro';
+
+const shots = [
+  { src: '/images/projects/pq-lockscreen.webp', alt: 'ParkingQuest live car park counts on the iPhone Lock Screen' },
+  { src: '/images/projects/pq-home-island.webp', alt: 'ParkingQuest home screen with Dynamic Island summary' },
+  { src: '/images/projects/pq-island-expanded.webp', alt: 'ParkingQuest expanded Dynamic Island view' },
+].map((s) => ({ ...s, ...imageSize(fs.readFileSync(`./public${s.src}`)) }));
 ---
 <Base
   title="ParkingQuest"
@@ -16,6 +24,15 @@ import Base from '../../layouts/Base.astro';
     <a class="btn" href="https://apps.apple.com/au/app/parkingquest/id6783192586">Download on the App Store</a>
     <a class="btn secondary" href="https://parkingquest.app">parkingquest.app</a>
   </div>
+
+  <section aria-labelledby="pq-shots">
+    <p class="eyebrow" id="pq-shots">On your phone</p>
+    <div class="shots">
+      {shots.map((s) => (
+        <img src={s.src} alt={s.alt} width={s.width} height={s.height} loading="lazy" decoding="async" />
+      ))}
+    </div>
+  </section>
 
   <section aria-labelledby="pq-features">
     <p class="eyebrow" id="pq-features">Features</p>
@@ -45,5 +62,5 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
-  <p class="more-link"><a class="quiet" href="/apps/">← All apps</a></p>
+  <p class="more-link"><a class="quiet" href="/projects/">← All projects</a></p>
 </Base>

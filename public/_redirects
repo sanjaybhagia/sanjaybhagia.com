@@ -39,6 +39,7 @@
 /we-all-should-be-bit-more-like-dogs /blog/we-all-should-be-bit-more-like-dogs/ 301
 
 # Misc old paths
+/apps/* /projects/:splat 301
 /posts /blog/ 301
 /posts/* /blog/ 301
 /sitemap.xml /sitemap-index.xml 301

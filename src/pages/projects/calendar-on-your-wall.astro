@@ -1,5 +1,13 @@
 ---
+import fs from 'node:fs';
+import { imageSize } from 'image-size';
 import Base from '../../layouts/Base.astro';
+
+const shot = {
+  src: '/images/projects/calendar-app.webp',
+  alt: 'Calendar on Your Wall — a full 2026 annual calendar ready to personalize and print',
+  ...imageSize(fs.readFileSync('./public/images/projects/calendar-app.webp')),
+};
 ---
 <Base
   title="Calendar on Your Wall"
@@ -15,6 +23,13 @@ import Base from '../../layouts/Base.astro';
   <div class="cta-row">
     <a class="btn" href="https://calendaronyourwall.com">Open the app</a>
   </div>
+
+  <section aria-labelledby="cal-shot">
+    <p class="eyebrow" id="cal-shot">A look</p>
+    <p class="shot-wide">
+      <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" />
+    </p>
+  </section>
 
   <section aria-labelledby="cal-features">
     <p class="eyebrow" id="cal-features">Features</p>
@@ -42,5 +57,5 @@ import Base from '../../layouts/Base.astro';
     </div>
   </section>
 
-  <p class="more-link"><a class="quiet" href="/apps/">← All apps</a></p>
+  <p class="more-link"><a class="quiet" href="/projects/">← All projects</a></p>
 </Base>

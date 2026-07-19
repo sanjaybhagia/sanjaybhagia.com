@@ -48,7 +48,7 @@ const postLd = {
   headline: post.data.title,
   description: post.data.description,
   datePublished: post.data.date.toISOString().slice(0, 10),
-  url: `https://sanjaybhagia.com/blog/${post.id}`,
+  url: `https://sanjaybhagia.com/blog/${post.id}/`,
   image: new URL(post.data.image ?? `/og/${post.id}.png`, 'https://sanjaybhagia.com').href,
   author: {
     '@type': 'Person',
@@ -71,7 +71,7 @@ const postLd = {
     {post.data.tags.length > 0 && (
       <ul class="tags">
         {post.data.tags.map((tag) => (
-          <li><a href={`/tags/${tagSlug(tag)}`}>{tag}</a></li>
+          <li><a href={`/tags/${tagSlug(tag)}/`}>{tag}</a></li>
         ))}
       </ul>
     )}
@@ -80,8 +80,8 @@ const postLd = {
       <Content />
     </div>
     <nav class="prevnext" aria-label="Adjacent posts">
-      {older ? <a class="quiet" href={`/blog/${older.id}`}>← {older.data.title}</a> : <span></span>}
-      {newer ? <a class="quiet" href={`/blog/${newer.id}`}>{newer.data.title} →</a> : <span></span>}
+      {older ? <a class="quiet" href={`/blog/${older.id}/`}>← {older.data.title}</a> : <span></span>}
+      {newer ? <a class="quiet" href={`/blog/${newer.id}/`}>{newer.data.title} →</a> : <span></span>}
     </nav>
     {related.length > 0 && (
       <section aria-labelledby="readnext-h" data-pagefind-ignore>

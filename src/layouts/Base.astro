@@ -52,11 +52,11 @@ const current = (prefix: string) =>
         <a class="wordmark" href="/">Sanjay Bhagia</a>
         <nav class="main" aria-label="Site">
           <a href="/" aria-current={current('/')}>Home</a>
-          <a href="/blog" aria-current={current('/blog')}>Blog</a>
-          <a href="/tags" aria-current={current('/tags')}>Tags</a>
-          <a href="/tools" aria-current={current('/tools')}>Tools</a>
-          <a href="/about" aria-current={current('/about')}>About</a>
-          <a href="/search" aria-current={current('/search')}>Search</a>
+          <a href="/blog/" aria-current={current('/blog')}>Blog</a>
+          <a href="/tags/" aria-current={current('/tags')}>Tags</a>
+          <a href="/tools/" aria-current={current('/tools')}>Tools</a>
+          <a href="/about/" aria-current={current('/about')}>About</a>
+          <a href="/search/" aria-current={current('/search')}>Search</a>
           <button class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
         </nav>
       </header>
@@ -67,7 +67,7 @@ const current = (prefix: string) =>
       <footer class="site">
         <span>© Sanjay Bhagia · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
         <span class="links">
-          <a href="/now">Now</a>
+          <a href="/now/">Now</a>
           <a href="/rss.xml">RSS</a>
           <a href="https://github.com/sanjaybhagia">GitHub</a>
           <a href="https://www.linkedin.com/in/sanjaybhagia/">LinkedIn</a>

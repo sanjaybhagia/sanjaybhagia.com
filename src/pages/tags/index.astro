@@ -14,7 +14,7 @@ const tags = [...collectTags(posts).entries()].sort(
   <ul class="tags">
     {tags.map(([slug, { name, posts }]) => (
       <li>
-        <a href={`/tags/${slug}`}>{name} <span class="tag-count">({posts.length})</span></a>
+        <a href={`/tags/${slug}/`}>{name} <span class="tag-count">({posts.length})</span></a>
       </li>
     ))}
   </ul>

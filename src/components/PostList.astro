@@ -17,7 +17,7 @@ const label = (d: Date) =>
   {posts.map((post) => (
     <li>
       <time datetime={post.data.date.toISOString()}>{label(post.data.date)}</time>
-      <a href={`/blog/${post.id}`}>{post.data.title}</a>
+      <a href={`/blog/${post.id}/`}>{post.data.title}</a>
     </li>
   ))}
 </ul>

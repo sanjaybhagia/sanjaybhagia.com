@@ -16,6 +16,7 @@
     "devDependencies": {
         "astro-og-canvas": "^0.13.0",
         "gray-matter": "^4.0.3",
-        "pagefind": "^1.5.2"
+        "pagefind": "^1.5.2",
+        "sharp": "^0.35.3"
     }
 }

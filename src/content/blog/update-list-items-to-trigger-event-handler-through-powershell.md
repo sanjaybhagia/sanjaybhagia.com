@@ -62,5 +62,5 @@ Now once the function is defined, call it for execution.
 <pre><code class="powershell">
 UpdateListItems &quot;http://mysite.mydomain.com&quot;
 </code></pre>
-<p style="text-align:justify;">One thing to notice in the script above is that we are using RunWithElevatedPrivileges. My Colleague <a href="http://www.matthiaseinig.de/">Matthias Einig</a> has written an amazing <a href="http://www.matthiaseinig.de/2012/12/18/lost-in-impersonation/">post</a> on his blog regarding this, do check it out.</p>
+<p style="text-align:justify;">One thing to notice in the script above is that we are using RunWithElevatedPrivileges. My Colleague <a href="http://www.matthiaseinig.de/">Matthias Einig</a> has written an amazing <a href="https://web.archive.org/web/20190824180710/http://www.matthiaseinig.de/2012/12/18/lost-in-impersonation/">post</a> on his blog regarding this, do check it out.</p>
 <p style="text-align:justify;">Hope it helps.</p>

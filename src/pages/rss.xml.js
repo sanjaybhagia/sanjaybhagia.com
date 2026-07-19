@@ -1,10 +1,8 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../lib/posts';
 
 export async function GET(context) {
-  const posts = (await getCollection('blog')).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  );
+  const posts = await getPublishedPosts();
   return rss({
     title: "Sanjay Bhagia's Blog",
     description: 'The personal blog of Sanjay Bhagia',

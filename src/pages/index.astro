@@ -1,14 +1,26 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
+import { getPublishedPosts } from '../lib/posts';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
-const recent = posts.slice(0, 4);
+const recent = (await getPublishedPosts()).slice(0, 4);
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Sanjay Bhagia',
+  url: 'https://sanjaybhagia.com',
+  jobTitle: 'Cloud Solutions Architect & Developer',
+  worksFor: { '@type': 'Organization', name: 'Inauro' },
+  sameAs: [
+    'https://github.com/sanjaybhagia',
+    'https://www.linkedin.com/in/sanjaybhagia/',
+    'https://twitter.com/bhagiasanjay',
+  ],
+};
 ---
 <Base>
+  <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
   <p class="eyebrow">.NET · Azure · DevOps · Sydney</p>
   <h1>Building things, writing them down.</h1>
   <p class="lede">
@@ -21,12 +33,12 @@ const recent = posts.slice(0, 4);
     <div class="cards">
       <div class="card">
         <span class="kind">iOS App</span>
-        <h3><a href="https://parkingquest.app">ParkingQuest</a></h3>
+        <h3><a href="/apps/parkingquest">ParkingQuest</a></h3>
         <p>Know before you go — live Park&amp;Ride occupancy for 30+ Sydney car parks, right on your iPhone Lock Screen.</p>
       </div>
       <div class="card">
         <span class="kind">Web App</span>
-        <h3><a href="https://calendaronyourwall.com">Calendar on Your Wall</a></h3>
+        <h3><a href="/apps/calendar-on-your-wall">Calendar on Your Wall</a></h3>
         <p>Personalize, print &amp; plan — printable calendars with your events and holidays, synced from Google Calendar.</p>
       </div>
       <div class="card">

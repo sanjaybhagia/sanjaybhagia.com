@@ -21,7 +21,7 @@ You can read more about the exam [here](https://docs.microsoft.com/en-us/learn/c
 
 
 ## Skills measured
-Following are the skills you will be measured on. For detailed description, [check this out](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4nBeC)
+Following are the skills you will be measured on. For detailed description, [check this out](https://web.archive.org/web/20230108202921/https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4nBeC)
 - Implement the IoT solution infrastructure (15-20%)
 - Provision and manage devices (20-25%)
 - Implement Edge (15-20%)
@@ -62,7 +62,7 @@ A good starting point, gives you links to respective sections based on exam stru
 Please check [this](/assets/220-studynotes) out. 
 
 ### Labs
-[Hands-on labs](https://microsoftlearning.github.io/AZ-220-Microsoft-Azure-IoT-Developer/) related to various topics for Azure IoT that are relevant for the exam.
+[Hands-on labs](https://web.archive.org/web/20201223224138/https://microsoftlearning.github.io/AZ-220-Microsoft-Azure-IoT-Developer/) related to various topics for Azure IoT that are relevant for the exam.
 
 ### MS Learn
 There are few [learning paths](https://docs.microsoft.com/en-us/learn/browse/?terms=iot&resource_type=learning%20path) on MS Learn that are really good. I started off with these.

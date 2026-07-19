@@ -1,0 +1,8 @@
+{
+  "current": [
+    { "title": "Sample: the book you're reading now", "author": "Replace me" }
+  ],
+  "finished": [
+    { "title": "Sample: a book you finished", "author": "Replace me", "year": 2026 }
+  ]
+}

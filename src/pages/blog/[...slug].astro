@@ -1,14 +1,13 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Comments from '../../components/Comments.astro';
 import PostList from '../../components/PostList.astro';
 import { tagSlug } from '../../lib/tags';
+import { getPublishedPosts } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('blog')).sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-  );
+  const posts = await getPublishedPosts();
   return posts.map((post, i) => {
     const related = posts
       .filter((p) => p.id !== post.id)
@@ -38,12 +37,28 @@ const dateLabel = post.data.date.toLocaleDateString('en-AU', {
   year: 'numeric',
   timeZone: 'UTC',
 });
+
+const postLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString().slice(0, 10),
+  url: `https://sanjaybhagia.com/blog/${post.id}`,
+  image: new URL(post.data.image ?? `/og/${post.id}.png`, 'https://sanjaybhagia.com').href,
+  author: {
+    '@type': 'Person',
+    name: 'Sanjay Bhagia',
+    url: 'https://sanjaybhagia.com/about',
+  },
+};
 ---
 <Base
   title={post.data.title}
   description={post.data.description}
   image={post.data.image ?? `/og/${post.id}.png`}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(postLd)} />
   <article class="post" data-pagefind-body>
     <p class="meta">
       <time datetime={post.data.date.toISOString()}>{dateLabel}</time> · {minutes} min read

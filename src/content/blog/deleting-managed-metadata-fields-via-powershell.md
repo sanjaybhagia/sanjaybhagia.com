@@ -17,7 +17,7 @@ Well, if thats the case then most likely you will end with the following excepti
 <blockquote>A duplicate field name dd93a2825ad24eef8e3e1cf4f2e96a40 was found</blockquote>
 Reason? The hidden field is not deleted yet and your code is trying to create the field with the same name.
 
-If you check it with <a title="SharePoint Manager 2013" href="http://spm.codeplex.com/" target="_blank">SharePoint Manager 2013</a> you can see that this Guid is the internal name of the hidden taxonomy field
+If you check it with <a title="SharePoint Manager 2013" href="https://web.archive.org/web/20160108124745/http://spm.codeplex.com/" target="_blank">SharePoint Manager 2013</a> you can see that this Guid is the internal name of the hidden taxonomy field
 
 <strong>Solution</strong>
 In order to get around this issue, we need to make sure that hidden Note field is also removed. I wrote few lines of PowerShell script to delete those hidden fields as well. Here is the code snippet.

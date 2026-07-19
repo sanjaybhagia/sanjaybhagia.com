@@ -102,6 +102,9 @@ const current = (prefix: string) =>
         const next = cur === 'dark' ? 'light' : 'dark';
         document.documentElement.dataset.theme = next;
         localStorage.setItem('theme', next);
+        document
+          .querySelector('iframe.giscus-frame')
+          ?.contentWindow?.postMessage({ giscus: { setConfig: { theme: next } } }, 'https://giscus.app');
       });
 
       document.querySelectorAll('.prose pre').forEach((pre) => {

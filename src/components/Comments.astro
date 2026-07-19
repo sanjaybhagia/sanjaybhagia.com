@@ -1,26 +1,38 @@
 ---
 // giscus (comments via GitHub Discussions) — https://giscus.app
-// To enable: turn on Discussions for the repo, install the giscus app,
-// then fill in the two IDs from giscus.app below.
+// Injected client-side so its theme matches the site's effective theme
+// (manual toggle first, then OS preference), not just the OS.
+// The theme toggle in Base.astro postMessages the iframe on switch.
 const GISCUS_REPO = 'sanjaybhagia/sanjaybhagia.github.io';
 const GISCUS_REPO_ID = 'MDEwOlJlcG9zaXRvcnk1MjEwMDcxNQ==';
 const GISCUS_CATEGORY = 'Announcements';
 const GISCUS_CATEGORY_ID = 'DIC_kwDOAxr-a84DBgQh';
 ---
-{GISCUS_REPO && (
-  <script
-    is:inline
-    src="https://giscus.app/client.js"
-    data-repo={GISCUS_REPO}
-    data-repo-id={GISCUS_REPO_ID}
-    data-mapping="pathname"
-    data-category={GISCUS_CATEGORY}
-    data-category-id={GISCUS_CATEGORY_ID}
-    data-reactions-enabled="1"
-    data-input-position="bottom"
-    data-theme="preferred_color_scheme"
-    data-lang="en"
-    crossorigin="anonymous"
-    async
-  ></script>
-)}
+<div class="comments" data-repo={GISCUS_REPO} data-repo-id={GISCUS_REPO_ID} data-category={GISCUS_CATEGORY} data-category-id={GISCUS_CATEGORY_ID}>
+</div>
+<script is:inline>
+  (() => {
+    const host = document.querySelector('.comments');
+    if (!host) return;
+    const theme =
+      document.documentElement.dataset.theme ??
+      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    const cfg = {
+      'data-repo': host.dataset.repo,
+      'data-repo-id': host.dataset.repoId,
+      'data-category': host.dataset.category,
+      'data-category-id': host.dataset.categoryId,
+      'data-mapping': 'pathname',
+      'data-reactions-enabled': '1',
+      'data-input-position': 'bottom',
+      'data-theme': theme,
+      'data-lang': 'en',
+    };
+    for (const [k, v] of Object.entries(cfg)) s.setAttribute(k, v);
+    host.appendChild(s);
+  })();
+</script>

@@ -7,9 +7,6 @@ import Toc from '../../components/Toc.astro';
 import { tagSlug } from '../../lib/tags';
 import { getPublishedPosts } from '../../lib/posts';
 
-// TOC pilot: one post for review before rolling out to all long posts.
-const TOC_PILOT = ['handling-order-processing-with-azure-api-servicebus-topics'];
-
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
   return posts.map((post, i) => {
@@ -96,7 +93,7 @@ const postLd = {
         fetchpriority="high"
       />
     )}
-    {TOC_PILOT.includes(post.id) && <Toc headings={headings} />}
+    <Toc headings={headings} />
     <div class="prose">
       <Content />
     </div>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#121714"/>
+  <text x="30" y="42" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="30" font-weight="700" fill="#7CC9A2" text-anchor="middle">sb</text>
+  <rect x="44" y="38" width="10" height="5" fill="#7CC9A2"/>
+</svg>

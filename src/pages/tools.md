@@ -11,7 +11,8 @@ Here is the list of tools that I use for my work.
 - [Acrobat Reader DC](https://acrobat.adobe.com/au/en/acrobat/pdf-reader.html)
 - [Brave](https://brave.com/) - *Personal browser*
 - [Chrome](https://www.google.com/chrome/) - *Work*
-- [Office 365 Suite](https://www.office.com/) (Word, Excel, OneNote, Outlook, MS Teams etc.)
+- [Office 365 Suite](https://www.office.com/) (Word, Excel, OneNote, Outlook etc.)
+- Microsoft Teams
 - [Spotify](https://www.spotify.com/au/)
 - Apple Notes
 - Apple Reminders
@@ -31,6 +32,4 @@ Here is the list of tools that I use for my work.
 - [Claude Code](https://claude.com/claude-code)
 - [Codex](https://openai.com/codex/)
 - Git
-- [Fiddler 4](https://www.telerik.com/fiddler)
 - [Postman](https://www.getpostman.com/)
-- Microsoft Teams

@@ -1,5 +1,6 @@
 ---
 title: Update Personal Site Property in User Profile
+description: "PowerShell script to relink the PersonalSpace user profile property when SharePoint loses the connection between users and their personal sites."
 date: '2013-03-06'
 tags:
   - My Site

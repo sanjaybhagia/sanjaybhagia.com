@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Subscribe from '../components/Subscribe.astro';
+import Analytics from '../components/Analytics.astro';
 
 interface Props {
   title?: string;
@@ -36,6 +37,8 @@ const current = (prefix: string) =>
     <meta property="og:url" content={new URL(path, Astro.site)} />
     <meta property="og:type" content={path.startsWith('/blog/') ? 'article' : 'website'} />
     {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+    {image && <meta name="twitter:card" content="summary_large_image" />}
+    <Analytics />
   </head>
   <body>
     <div class="shell">
@@ -47,6 +50,7 @@ const current = (prefix: string) =>
           <a href="/tags" aria-current={current('/tags')}>Tags</a>
           <a href="/tools" aria-current={current('/tools')}>Tools</a>
           <a href="/about" aria-current={current('/about')}>About</a>
+          <a href="/search" aria-current={current('/search')}>Search</a>
         </nav>
       </header>
       <main>

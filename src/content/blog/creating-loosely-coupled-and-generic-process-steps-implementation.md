@@ -1,5 +1,6 @@
 ---
 title: Creating loosely coupled and generic process steps implementation
+description: "Designing a loosely coupled process step framework in C# with Execute and RollBack methods for a SharePoint site provisioning workflow."
 date: '2013-05-02'
 tags:
   - flexible

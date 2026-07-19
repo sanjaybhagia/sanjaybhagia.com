@@ -1,5 +1,6 @@
 ---
 title: Capture your favourite quotes from physical books
+description: "Building an Azure Logic App that picks up book photos from OneDrive and extracts the quotes with the Computer Vision OCR API."
 date: '2020-08-24'
 tags:
   - azure

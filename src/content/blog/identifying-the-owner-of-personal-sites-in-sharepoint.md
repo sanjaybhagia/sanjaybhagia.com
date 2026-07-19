@@ -1,5 +1,6 @@
 ---
 title: Identifying the owner of personal sites in SharePoint
+description: "How to find the owner of a SharePoint personal site by mapping the PersonalSpace profile property to search and caching the result in the property bag."
 date: '2015-01-22'
 tags:
   - KeywordQuery

@@ -1,5 +1,6 @@
 ---
 title: Deleting Managed Metadata Fields via PowerShell
+description: "PowerShell script to remove the hidden Note fields SharePoint leaves behind when deleting taxonomy fields, fixing duplicate field name errors."
 date: '2015-01-08'
 tags:
   - Managed Metadata Fields

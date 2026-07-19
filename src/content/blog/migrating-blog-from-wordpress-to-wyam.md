@@ -1,5 +1,6 @@
 ---
 title: Migrating from WordPress to Wyam
+description: "Notes on moving my blog from WordPress to the Wyam static site generator, hosted on Netlify with an Azure DevOps pipeline for deployment."
 date: '2019-10-05'
 tags:
   - static-blog

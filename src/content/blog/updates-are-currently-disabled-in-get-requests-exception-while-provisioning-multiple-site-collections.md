@@ -2,6 +2,7 @@
 title: >-
   Updates are currently disabled in GET requests exception while provisioning
   multiple site collections
+description: "Why SharePoint throws 'Updates are currently disabled in GET requests' when a timer job creates several site collections, and the HttpContext fix."
 date: '2013-06-02'
 tags:
   - Add SiteCollections

@@ -1,5 +1,6 @@
 ---
 title: Microsoft OpenHack DevOps - Stockholm
+description: "My experience at Microsoft's three-day OpenHack DevOps hackathon in Stockholm, solving Azure DevOps and Kubernetes challenges hands-on."
 date: '2019-02-11'
 tags:
   - azure

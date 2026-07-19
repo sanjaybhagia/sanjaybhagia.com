@@ -1,5 +1,6 @@
 ---
 title: Accessing WCF Service via Azure Service Bus Relay with .NET Core
+description: "Calling an on-premises WCF service from a .NET Core web app through Azure Service Bus Relay by crafting the SOAP request and relay token by hand."
 date: '2018-11-28'
 tags:
   - .net-core

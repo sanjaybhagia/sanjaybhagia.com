@@ -1,5 +1,6 @@
 ---
 title: Accessing Azure Analysis Services Models using .NET Core
+description: "Querying an Azure Analysis Services model from .NET Core using ADOMD.NET with a service principal and token-based authentication via ADAL.NET."
 date: '2018-11-12'
 tags:
   - .net-core

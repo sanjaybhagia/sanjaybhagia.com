@@ -1,5 +1,6 @@
 ---
 title: 'Passing AZ-220: Microsoft Azure IoT Developer Exam'
+description: "How I prepared for and passed the AZ-220 Azure IoT Developer exam, with study material, labs, online proctoring tips and my impressions."
 date: '2020-09-05'
 tags:
   - azure

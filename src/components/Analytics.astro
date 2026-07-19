@@ -1,0 +1,14 @@
+---
+// Cloudflare Web Analytics — free, cookie-less, no consent banner needed.
+// To enable: dash.cloudflare.com → Analytics & Logs → Web Analytics → Add a site
+// (hostname: sanjaybhagia.com), copy the token from the JS snippet, paste below.
+const CF_BEACON_TOKEN = '';
+---
+{CF_BEACON_TOKEN && (
+  <script
+    defer
+    is:inline
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon={`{"token": "${CF_BEACON_TOKEN}"}`}
+  ></script>
+)}

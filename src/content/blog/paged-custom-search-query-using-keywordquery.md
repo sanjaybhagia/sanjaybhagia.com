@@ -1,5 +1,6 @@
 ---
 title: Paged Custom Search Query using KeywordQuery
+description: "Paging SharePoint KeywordQuery results with RowLimit and StartRow to stay under the 10000 row search limit and avoid HRESULT 0x80040E01 errors."
 date: '2013-03-14'
 tags:
   - Custom Search

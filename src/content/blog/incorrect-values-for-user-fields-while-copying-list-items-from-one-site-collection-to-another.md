@@ -2,6 +2,7 @@
 title: >-
   Incorrect values for User Fields while copying list items from one site
   collection to another
+description: "Fixing wrong user field values when copying SharePoint list items across site collections by remapping lookup ids with SPWeb.EnsureUser."
 date: '2013-05-25'
 tags:
   - Copy list item

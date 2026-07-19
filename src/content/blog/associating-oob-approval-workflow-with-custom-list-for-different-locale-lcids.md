@@ -2,6 +2,7 @@
 title: >-
   Associating OOB Approval workflow with custom list for different Locale
   (LCIDs)
+description: "Why the OOB Approval workflow template BaseId differs per locale, and how to build the right GUID from the site's LCID in hex to associate it."
 date: '2013-10-20'
 tags:
   - Approval Workflow

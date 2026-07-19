@@ -1,5 +1,6 @@
 ---
 title: Are you keeping your secrets secret?
+description: "Two versions of an Azure web app reading from blob storage: one with the connection string in app settings, one keeping it safe in Key Vault."
 date: '2018-10-25'
 tags:
   - azure

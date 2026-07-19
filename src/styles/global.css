@@ -280,6 +280,18 @@ form.subscribe button {
 }
 form.subscribe button:hover { filter: brightness(1.08); }
 
+#search {
+  margin-top: 1.5rem;
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--ink);
+  --pagefind-ui-background: var(--surface);
+  --pagefind-ui-border: var(--line);
+  --pagefind-ui-tag: var(--accent-soft);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 6px;
+  --pagefind-ui-font: var(--body);
+}
+
 footer.site {
   border-top: 1px solid var(--line);
   padding: 1.5rem 0 2.5rem;

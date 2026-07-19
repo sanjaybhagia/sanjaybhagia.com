@@ -1,5 +1,6 @@
 ---
 title: Consuming Content Type Hub in custom web templates
+description: "Why sites created from custom web templates can't consume the Content Type Hub, and how activating the hidden TaxonomyFieldAdded feature fixes it."
 date: '2013-03-21'
 tags:
   - Consuming Content Type

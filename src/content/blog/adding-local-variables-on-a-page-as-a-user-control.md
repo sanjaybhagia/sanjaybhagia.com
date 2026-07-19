@@ -1,5 +1,6 @@
 ---
 title: Adding local variables on a page as a user control
+description: "Using a SharePoint user control to emit server-side values as inline JavaScript variables, available on page load without waiting for external scripts."
 date: '2012-12-20'
 tags:
   - Delegate Controls

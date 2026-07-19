@@ -1,5 +1,6 @@
 ---
 title: Using Postman for Integration Tests
+description: "How I use Postman collections, tests and environment variables to run integration tests against my APIs before every release."
 date: '2018-12-11'
 tags:
   - apis

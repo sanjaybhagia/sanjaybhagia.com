@@ -1,5 +1,6 @@
 ---
 title: Pulumi - What and Why?
+description: "An introduction to Pulumi and why writing infrastructure as code in a real programming language beats DSLs like ARM templates and HCL."
 date: '2020-09-10'
 tags:
   - devops

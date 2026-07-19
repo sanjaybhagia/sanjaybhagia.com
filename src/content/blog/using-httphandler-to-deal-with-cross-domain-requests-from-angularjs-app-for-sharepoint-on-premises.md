@@ -2,6 +2,7 @@
 title: >-
   Using HttpHandler to deal with cross-domain requests from AngularJS app for
   SharePoint on-premises
+description: "Using a custom HttpHandler to avoid cross-domain issues when an AngularJS app filters followed sites with the site feed feature in SharePoint on-prem."
 date: '2014-08-16'
 tags:
   - AngularJS

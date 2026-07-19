@@ -1,5 +1,6 @@
 ---
 title: Update list items to trigger event handler through PowerShell
+description: "PowerShell script that updates every item in a SharePoint list to re-trigger its event handler and push taxonomy values back into user profiles."
 date: '2013-02-25'
 tags:
   - Event Handler

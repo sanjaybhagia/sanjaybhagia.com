@@ -1,5 +1,6 @@
 ---
 title: Pulumi - How it works?
+description: "A look under the hood of Pulumi: the engine, language hosts, resource providers, stacks and state, plus a hello world program targeting Azure."
 date: '2020-09-21'
 tags:
   - devops

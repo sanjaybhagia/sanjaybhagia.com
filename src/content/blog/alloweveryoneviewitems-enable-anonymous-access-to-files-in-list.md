@@ -1,5 +1,6 @@
 ---
 title: AllowEveryoneViewItems - Enable anonymous access to files in list
+description: "How the AllowEveryoneViewItems property makes documents and attachments in a SharePoint list anonymously accessible, set via PowerShell, XML or code."
 date: '2012-12-12'
 tags:
   - Anonymous Access

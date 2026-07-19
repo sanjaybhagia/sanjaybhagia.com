@@ -1,5 +1,6 @@
 ---
 title: Capture your favourite quotes from physical books - Part 2
+description: "Part 2: Writing an Azure Function that appends OCR-detected quotes from the Logic App to a text file in blob storage."
 date: '2020-08-25'
 tags:
   - azure

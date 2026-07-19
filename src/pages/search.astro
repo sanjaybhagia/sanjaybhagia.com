@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Search" description="Search everything on this site.">
+  <p class="eyebrow">Find</p>
+  <h1>Search</h1>
+  <!-- Pagefind assets are generated into dist/ at build time (npm run build);
+       the search UI won't work under `astro dev`. -->
+  <div id="search"></div>
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      new PagefindUI({ element: '#search', showSubResults: true, showImages: false });
+    });
+  </script>
+</Base>

@@ -2,6 +2,7 @@
 title: >-
   The specified program requires a new version of Windows. (Exception from
   HRESULT:0x8007047E)
+description: "Fixing the HRESULT 0x8007047E exception by dropping ModeratedList from schema.xml and enabling content approval in code instead."
 date: '2013-11-23'
 tags:
   - Approval Workflow

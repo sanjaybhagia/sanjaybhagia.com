@@ -4,8 +4,10 @@ import Base from './Base.astro';
 const { frontmatter } = Astro.props;
 ---
 <Base title={frontmatter.title} description={frontmatter.description}>
-  <h1>{frontmatter.title}</h1>
-  <div class="prose">
-    <slot />
+  <div data-pagefind-body>
+    <h1>{frontmatter.title}</h1>
+    <div class="prose">
+      <slot />
+    </div>
   </div>
 </Base>

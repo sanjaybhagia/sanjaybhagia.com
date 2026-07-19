@@ -1,5 +1,6 @@
 ---
 title: Pulumi - Secrets Management
+description: "How Pulumi encrypts secrets in stack configuration, and using the passphrase and Azure Key Vault providers to manage your own encryption keys."
 date: '2021-01-26'
 tags:
   - devops

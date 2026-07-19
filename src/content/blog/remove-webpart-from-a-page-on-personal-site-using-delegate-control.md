@@ -1,5 +1,6 @@
 ---
 title: Remove webpart from a page on Personal site using delegate control
+description: "Using a delegate control to remove the Recent Blog Posts web part from the default page when SharePoint provisions a user's personal site."
 date: '2013-01-12'
 tags:
   - Delegate Controls

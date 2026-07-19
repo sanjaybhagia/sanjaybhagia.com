@@ -1,5 +1,6 @@
 ---
 title: Pulumi - State Management
+description: "How Pulumi tracks infrastructure state, and a walkthrough of replacing the hosted backend with your own Azure Blob Storage container."
 date: '2021-02-01'
 tags:
   - devops

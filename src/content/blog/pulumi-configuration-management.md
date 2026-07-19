@@ -1,5 +1,6 @@
 ---
 title: Pulumi - Configuration Management
+description: "How Pulumi's per-stack configuration works: setting and reading values via the CLI and C# code, namespaces, and structured config with --path."
 date: '2021-01-15'
 tags:
   - devops

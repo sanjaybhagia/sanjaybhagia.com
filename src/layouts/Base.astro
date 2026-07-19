@@ -50,14 +50,23 @@ const current = (prefix: string) =>
     <div class="shell">
       <header class="site">
         <a class="wordmark" href="/">Sanjay Bhagia</a>
-        <nav class="main" aria-label="Site">
+        <span class="nav-controls">
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+          >☰</button>
+        </span>
+        <nav class="main" id="site-nav" aria-label="Site">
           <a href="/" aria-current={current('/')}>Home</a>
           <a href="/blog/" aria-current={current('/blog')}>Blog</a>
           <a href="/tags/" aria-current={current('/tags')}>Tags</a>
           <a href="/tools/" aria-current={current('/tools')}>Tools</a>
           <a href="/about/" aria-current={current('/about')}>About</a>
           <a href="/search/" aria-current={current('/search')}>Search</a>
-          <button class="theme-toggle" type="button" aria-label="Toggle dark mode"></button>
         </nav>
       </header>
       <main>
@@ -76,6 +85,14 @@ const current = (prefix: string) =>
       </footer>
     </div>
     <script is:inline>
+      const menuBtn = document.querySelector('.menu-toggle');
+      menuBtn?.addEventListener('click', () => {
+        const nav = document.getElementById('site-nav');
+        const open = nav.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.textContent = open ? '✕' : '☰';
+      });
+
       document.querySelector('.theme-toggle')?.addEventListener('click', () => {
         const cur =
           document.documentElement.dataset.theme ??

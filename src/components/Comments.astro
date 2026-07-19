@@ -2,9 +2,10 @@
 // giscus (comments via GitHub Discussions) — https://giscus.app
 // To enable: turn on Discussions for the repo, install the giscus app,
 // then fill in the two IDs from giscus.app below.
-const GISCUS_REPO = ''; // e.g. 'sanjaybhagia/sanjaybhagia.github.io'
-const GISCUS_REPO_ID = '';
-const GISCUS_CATEGORY_ID = '';
+const GISCUS_REPO = 'sanjaybhagia/sanjaybhagia.github.io';
+const GISCUS_REPO_ID = 'MDEwOlJlcG9zaXRvcnk1MjEwMDcxNQ==';
+const GISCUS_CATEGORY = 'Announcements';
+const GISCUS_CATEGORY_ID = 'DIC_kwDOAxr-a84DBgQh';
 ---
 {GISCUS_REPO && (
   <script
@@ -13,6 +14,7 @@ const GISCUS_CATEGORY_ID = '';
     data-repo={GISCUS_REPO}
     data-repo-id={GISCUS_REPO_ID}
     data-mapping="pathname"
+    data-category={GISCUS_CATEGORY}
     data-category-id={GISCUS_CATEGORY_ID}
     data-reactions-enabled="1"
     data-input-position="bottom"

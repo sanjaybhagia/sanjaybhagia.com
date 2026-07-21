@@ -1,6 +1,5 @@
 ---
-// Data-driven from src/data/reading.json. Deliberately NOT linked in the nav
-// until real books replace the sample entries.
+// Data-driven from src/data/reading.json.
 import Base from '../layouts/Base.astro';
 import reading from '../data/reading.json';
 ---
@@ -12,7 +11,7 @@ import reading from '../data/reading.json';
     <p class="eyebrow" id="reading-now">Currently reading</p>
     <ul class="post-list">
       {reading.current.map((b) => (
-        <li><a href="#">{b.title}</a> — {b.author}</li>
+        <li><span>{b.title} — {b.author}</span></li>
       ))}
     </ul>
   </section>

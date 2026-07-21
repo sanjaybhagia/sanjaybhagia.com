@@ -1,8 +1,8 @@
 {
   "current": [
-    { "title": "Sample: the book you're reading now", "author": "Replace me" }
+    { "title": "Maintenance: Of Everything", "author": "Stewart Brand" }
   ],
   "finished": [
-    { "title": "Sample: a book you finished", "author": "Replace me", "year": 2026 }
+    { "title": "Project Hail Mary", "author": "Andy Weir", "year": 2026 }
   ]
 }

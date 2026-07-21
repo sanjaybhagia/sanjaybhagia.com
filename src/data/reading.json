@@ -1,8 +1,30 @@
 {
   "current": [
-    { "title": "Maintenance: Of Everything", "author": "Stewart Brand" }
+    {
+      "title": "Maintenance: Of Everything, Part One",
+      "author": "Stewart Brand",
+      "url": "https://press.stripe.com/maintenance-part-one"
+    },
+    {
+      "title": "The Almanack of Naval Ravikant: A Guide to Wealth and Happiness",
+      "author": "Eric Jorgenson",
+      "url": "https://www.navalmanack.com/"
+    }
+  ],
+  "listening": [
+    {
+      "title": "The Odyssey",
+      "author": "Homer, translated by Emily Wilson",
+      "narrator": "Claire Danes",
+      "url": "https://wwnorton.com/books/the-odyssey"
+    }
   ],
   "finished": [
-    { "title": "Project Hail Mary", "author": "Andy Weir", "year": 2026 }
+    {
+      "title": "Project Hail Mary",
+      "author": "Andy Weir",
+      "year": 2026,
+      "url": "https://www.penguinrandomhouse.com/books/611060/project-hail-mary-by-andy-weir/"
+    }
   ]
 }

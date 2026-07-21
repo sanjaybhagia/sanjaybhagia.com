@@ -3,7 +3,7 @@
 import Base from '../layouts/Base.astro';
 import reading from '../data/reading.json';
 ---
-<Base title="Reading" description="What I'm reading now and what I've finished.">
+<Base title="Reading" description="What I'm reading and listening to, and what I've finished.">
   <p class="eyebrow">Bookshelf</p>
   <h1>Reading</h1>
 
@@ -11,10 +11,30 @@ import reading from '../data/reading.json';
     <p class="eyebrow" id="reading-now">Currently reading</p>
     <ul class="post-list">
       {reading.current.map((b) => (
-        <li><span>{b.title} — {b.author}</span></li>
+        <li>
+          <span>
+            {b.url ? <a class="quiet" href={b.url}>{b.title}</a> : b.title} — {b.author}
+          </span>
+        </li>
       ))}
     </ul>
   </section>
+
+  {reading.listening?.length > 0 && (
+    <section aria-labelledby="reading-listen">
+      <p class="eyebrow" id="reading-listen">Currently listening</p>
+      <ul class="post-list">
+        {reading.listening.map((b) => (
+          <li>
+            <span>
+              {b.url ? <a class="quiet" href={b.url}>{b.title}</a> : b.title} — {b.author}
+              {b.narrator && <span class="tag-count"> · narrated by {b.narrator}</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 
   <section aria-labelledby="reading-done">
     <p class="eyebrow" id="reading-done">Finished</p>
@@ -22,7 +42,9 @@ import reading from '../data/reading.json';
       {reading.finished.map((b) => (
         <li>
           <time>{b.year ?? ''}</time>
-          <span>{b.title} — {b.author}</span>
+          <span>
+            {b.url ? <a class="quiet" href={b.url}>{b.title}</a> : b.title} — {b.author}
+          </span>
         </li>
       ))}
     </ul>

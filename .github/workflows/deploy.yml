@@ -2,7 +2,7 @@ name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches: [astro] # switch to [master] at cutover
+    branches: [master]
   workflow_dispatch:
 
 jobs:

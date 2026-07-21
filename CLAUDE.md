@@ -3,13 +3,6 @@
 Personal site of Sanjay Bhagia. Astro static site deployed to Cloudflare Pages
 (project `sanjaybhagia-com`). Replaced a deprecated Wyam/.NET build in July 2026.
 
-## Status caveat (remove after DNS cutover)
-
-sanjaybhagia.com DNS still points at the OLD Wyam site on Netlify, which deploys
-on any push to `master` — do not push to `master`. All work happens on the
-`astro` branch; the new site lives at https://sanjaybhagia-com.pages.dev.
-The old Wyam sources (`input/`, `config.wyam`) are kept until cutover, then deleted.
-
 ## Commands
 
 - `npm run dev` — dev server (search UI won't work in dev; it needs the built index)
@@ -18,8 +11,9 @@ The old Wyam sources (`input/`, `config.wyam`) are kept until cutover, then dele
 - `node scripts/send-newsletter.mjs <post-slug> [--send]` — Kit broadcast for a post
   (draft unless `--send`; needs `KIT_API_KEY` in `.env`, gitignored)
 
-GitHub Actions (`.github/workflows/deploy.yml`) deploys on push once the
-`CLOUDFLARE_API_TOKEN` secret exists; until then deploy manually with wrangler.
+GitHub Actions (`.github/workflows/deploy.yml`) deploys to production on every
+push to `master`. sanjaybhagia.com + www are custom domains on the Pages
+project (DNS proxied via Cloudflare; Web Analytics auto-injected at the edge).
 
 ## Publishing a post
 

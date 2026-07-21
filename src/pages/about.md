@@ -11,6 +11,6 @@ I'm also a published author. You can check my course on [Cloud Computing Fundame
 
 I'm focused on Cloud development with emphasis on developing quality solutions by leveraging the power of cloud and software craftsmanship. I love to get the overall view of the problem space and leverage the best tools and technologies available to solve business needs. I like to think of software as a living organism and hence try to create solutions and softwares that are agile and evolving.
 
-I am quite interested in exploring latest developments in technology and try to keep myself updated. I'm a foodie and love watching movies, love to read books and travel around the world whenever I can.
+I am quite interested in exploring latest developments in technology and try to keep myself updated. Outside of work: cooking and eating well, running, lifting weights, good books, good films, and travel whenever I can manage it.
 
 Feel free to reach out and connect via [LinkedIn](https://www.linkedin.com/in/sanjaybhagia) and [Twitter](https://www.twitter.com/bhagiasanjay).

@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Comments from '../../components/Comments.astro';
+import Base from '../../layouts/Base.astro';
+import { getReviewedReviews } from '../../lib/reviews';
+
+// A page exists only once there's a verdict — a half-read book has nothing to say yet, and
+// /reading links straight to its canonical page until then.
+export async function getStaticPaths() {
+  const reviewed = await getReviewedReviews();
+  return reviewed.map((review, index) => ({
+    params: { slug: review.id },
+    props: {
+      review,
+      newer: reviewed[index - 1] ?? null,
+      older: reviewed[index + 1] ?? null,
+    },
+  }));
+}
+
+const { review, newer, older } = Astro.props;
+const { Content } = await render(review);
+const hasBody = Boolean(review.body?.trim());
+const kindLabel = review.data.kind[0].toUpperCase() + review.data.kind.slice(1);
+const dateLabel = review.data.date.toLocaleDateString('en-AU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+const facts = Object.entries(review.data.facts);
+const urlAlreadyPresent = review.data.url && facts.some(([key, value]) =>
+  /^(url|link|website)$/i.test(key) || value.includes(review.data.url!),
+);
+if (review.data.url && !urlAlreadyPresent) facts.push(['Link', review.data.url]);
+---
+<Base
+  title={review.data.title}
+  description={review.data.oneLiner ?? `${kindLabel} review by Sanjay Bhagia.`}
+  image={`/og/reviews/${review.id}.png`}
+>
+  <article class="detail" data-pagefind-body>
+    <div class="detail-wrap">
+      <a class="backlink" href="/reviews/">← All reviews</a>
+
+      <p class="eyebrow">{kindLabel}</p>
+      <h1>{review.data.title}</h1>
+      <div class="meta-row">
+        {review.data.verdict && (
+          <span class="verdict" data-v={review.data.verdict}>
+            {review.data.verdict[0].toUpperCase() + review.data.verdict.slice(1)}
+          </span>
+        )}
+        {review.data.location && <span class="kind">{review.data.location}</span>}
+        {review.data.location && <span class="kind">·</span>}
+        <time class="when" datetime={review.data.date.toISOString().slice(0, 10)}>
+          {dateLabel}
+        </time>
+      </div>
+      {review.data.oneLiner && <p class="lede">{review.data.oneLiner}</p>}
+
+      {review.data.images.length > 0 && (
+        <>
+          <div class="gallery">
+            {review.data.images.map((image) => (
+              <>
+                {'\n'}
+                <figure>
+                  <Image
+                    class="shot"
+                    src={image.src}
+                    alt={image.alt}
+                    width={800}
+                    height={600}
+                    loading="lazy"
+                  />
+                </figure>
+              </>
+            ))}
+          </div>
+          <p class="caption">{review.data.images.map((image) => image.alt).join('; ')}.</p>
+        </>
+      )}
+
+      {facts.length > 0 && (
+        <dl class="facts">
+          {facts.map(([key, value]) => (
+            <>
+              <dt>{key}</dt>
+              <dd>
+                {/^(https?:\/\/)/.test(value)
+                  ? <a href={value}>{key === 'Link' ? 'Canonical link' : value}</a>
+                  : value}
+              </dd>
+            </>
+          ))}
+        </dl>
+      )}
+
+      {hasBody && (
+        <div class="prose">
+          <Content />
+        </div>
+      )}
+
+      {review.data.tags.length > 0 && (
+        <ul class="tags review-tags">
+          {review.data.tags.map((tag) => (
+            <li><a href={`/reviews/?q=${encodeURIComponent(tag)}`}>{tag}</a></li>
+          ))}
+        </ul>
+      )}
+
+      {(older || newer) && (
+        <nav class="prevnext" aria-label="Adjacent reviews">
+          {older
+            ? <a href={`/reviews/${older.id}/`}>← {older.data.title}</a>
+            : <span></span>}
+          {newer
+            ? <a href={`/reviews/${newer.id}/`}>{newer.data.title} →</a>
+            : <span></span>}
+        </nav>
+      )}
+
+      <Comments />
+    </div>
+  </article>
+</Base>

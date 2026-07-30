@@ -7,12 +7,16 @@ Personal site of Sanjay Bhagia. Astro static site deployed to Cloudflare Pages
 
 - `npm run dev` — dev server (search UI won't work in dev; it needs the built index)
 - `npm run build` — builds to `dist/` (includes Pagefind index + OG card images)
-- `npx wrangler pages deploy dist --project-name sanjaybhagia-com --branch astro` — deploy
+- `npx wrangler pages deploy dist --project-name sanjaybhagia-com --branch <name>` — manual
+  deploy. `master` is the Pages **production** branch; any other `--branch` value lands on
+  a preview URL (`https://<name>.sanjaybhagia-com.pages.dev`) and does NOT touch the live
+  site. The old documented `--branch astro` was therefore a preview, not a deploy.
 - `node scripts/send-newsletter.mjs <post-slug> [--send]` — Kit broadcast for a post
   (draft unless `--send`; needs `KIT_API_KEY` in `.env`, gitignored)
 
 GitHub Actions (`.github/workflows/deploy.yml`) deploys to production on every
-push to `master`. sanjaybhagia.com + www are custom domains on the Pages
+push to `master`, and deploys every pull request to a preview URL, posting it as a
+sticky comment on the PR — that comment is how reviews get approved from a phone. sanjaybhagia.com + www are custom domains on the Pages
 project (DNS proxied via Cloudflare; Web Analytics auto-injected at the edge).
 
 ## Publishing a post
@@ -26,11 +30,23 @@ project (DNS proxied via Cloudflare; Web Analytics auto-injected at the edge).
    screenshots first (`sips` is available on macOS).
 3. Build, deploy, then send the newsletter (draft first, review in Kit, send).
 
+## Publishing a review
+
+When Sanjay dumps an opinion about something he read, watched, ate, visited, or bought —
+unstructured text, a voice-note transcript, photos with a caption — use the `review` skill
+(`.claude/skills/review/SKILL.md`). It fires without being asked for; he will never type a
+command. Reviews go to `src/content/reviews/<slug>.md` on a branch + PR, never straight to
+`master`.
+
 ## Structure notes
 
 - `src/content/blog/` — 34 migrated posts + new ones. Dates come from
   frontmatter, NOT filenames (two legacy posts differ — don't "fix" them).
   Posts from 2012–2015 contain raw WordPress HTML — intentional, leave as-is.
+- `src/content/reviews/` — books, films, TV, restaurants, places, gear. `verdict` is the
+  switch: without one an entry is a shelf item (shows on `/reading`, no page, absent from
+  `/reviews`); with one it gains a page, joins `/reviews` + `/reviews/rss.xml`, and
+  `/reading` links inward. `/reading` reads from this collection — `reading.json` is gone.
 - `public/_redirects` — Cloudflare 301s mapping the old Wyam URL scheme
   (`/YYYY/MM/DD/slug` and root-level `/slug`) to `/blog/slug`. Load-bearing
   for SEO; old `/images/...` URLs are likewise load-bearing — never rename.

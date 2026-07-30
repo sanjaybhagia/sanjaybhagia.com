@@ -1,0 +1,526 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { getReviewedReviews } from '../../lib/reviews';
+
+// Only entries with a verdict are reviews. Un-verdicted shelf items live on /reading until
+// he forms an opinion, at which point they appear here automatically.
+const reviews = await getReviewedReviews();
+
+const kindLabels = {
+  book: 'Books',
+  film: 'Films',
+  tv: 'TV',
+  restaurant: 'Restaurants',
+  place: 'Places',
+  product: 'Gear',
+};
+const kindOrder = ['book', 'film', 'tv', 'restaurant', 'place', 'product'] as const;
+const verdictOrder = ['loved', 'liked', 'fine', 'nope'] as const;
+
+const kindCounts = new Map<string, number>();
+const verdictCounts = new Map<string, number>();
+for (const review of reviews) {
+  kindCounts.set(review.data.kind, (kindCounts.get(review.data.kind) ?? 0) + 1);
+  if (review.data.verdict) {
+    verdictCounts.set(review.data.verdict, (verdictCounts.get(review.data.verdict) ?? 0) + 1);
+  }
+}
+const kinds = kindOrder.filter((kind) => kindCounts.has(kind));
+const locations = [...new Set(
+  reviews
+    .map((review) => review.data.location?.split(',')[0].trim())
+    .filter((location): location is string => Boolean(location)),
+)].sort((a, b) => a.localeCompare(b));
+
+const byYear = new Map<number, typeof reviews>();
+for (const review of reviews) {
+  const year = review.data.date.getUTCFullYear();
+  if (!byYear.has(year)) byYear.set(year, []);
+  byYear.get(year)!.push(review);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+
+const dateLabel = (date: Date) => date.toLocaleDateString('en-AU', {
+  day: 'numeric',
+  month: 'short',
+  timeZone: 'UTC',
+});
+// Skip a leading article, else half the shelf shows a "T".
+const initial = (title: string) =>
+  (title.replace(/^(the|a|an)\s+/i, '') || title).trim()[0].toUpperCase();
+const searchBlob = (review: typeof reviews[number]) => [
+  review.data.title,
+  review.data.creator,
+  review.data.location,
+  review.data.oneLiner,
+  ...review.data.tags,
+  review.data.verdict,
+  review.data.kind,
+].filter(Boolean).join(' ').toLowerCase();
+---
+<Base
+  title="Reviews"
+  description="Books, films, restaurants, places, and gear — mostly short reviews from Sanjay Bhagia."
+>
+  <div class="index" id="indexView">
+    <p class="eyebrow">Reviews</p>
+    <h1>Things I tried, and whether they were worth it</h1>
+    <p class="lede">
+      Books, films, restaurants, places, gear. Mostly short — a sentence or two is
+      usually the honest length. Search it, filter it, argue with it.
+    </p>
+
+    {reviews.length === 0 && (
+      <p class="section-note" style="margin-top: 2rem">
+        Nothing reviewed yet. What I'm part-way through is on
+        <a class="quiet" href="/reading/">the bookshelf</a>.
+      </p>
+    )}
+
+    <div class="filters" data-pagefind-ignore data-collapsed="false" hidden={reviews.length === 0}>
+      <div class="filter-bar">
+        <div class="search-row">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"></circle>
+            <path d="M10 10l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+          <input
+            id="q"
+            type="search"
+            placeholder="Search titles, places, people, notes…"
+            autocomplete="off"
+            aria-label="Search reviews"
+          />
+          <button class="clear-q" id="clearQ" type="button">Clear</button>
+        </div>
+        <button
+          class="filter-toggle"
+          id="filterToggle"
+          type="button"
+          aria-expanded="true"
+          aria-controls="facets"
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path
+              d="M2 4h12M4.5 8h7M7 12h2"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+          Filters<span class="badge" id="filterBadge" hidden></span>
+        </button>
+        <span class="count" id="count">{reviews.length} reviews</span>
+      </div>
+
+      <div class="facets" id="facets">
+      <div class="facet">
+        <span class="label" id="kindLabel">Kind</span>
+        <ul class="chips" role="group" aria-labelledby="kindLabel">
+          <li>
+            <button
+              class="chip"
+              type="button"
+              data-facet="kind"
+              data-value="all"
+              aria-pressed="true"
+            >All</button>
+          </li>
+          {kinds.map((kind) => (
+            <li>
+              <button
+                class="chip"
+                type="button"
+                data-facet="kind"
+                data-value={kind}
+                aria-pressed="false"
+              >
+                {kindLabels[kind]}<span class="n">{kindCounts.get(kind)}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="facet">
+        <span class="label" id="verdictLabel">Verdict</span>
+        <ul class="chips" role="group" aria-labelledby="verdictLabel">
+          <li>
+            <button
+              class="chip"
+              type="button"
+              data-facet="verdict"
+              data-value="all"
+              aria-pressed="true"
+            >All</button>
+          </li>
+          {verdictOrder.map((verdict) => (
+            <li>
+              <button
+                class="chip"
+                type="button"
+                data-facet="verdict"
+                data-value={verdict}
+                aria-pressed="false"
+              >
+                {verdict[0].toUpperCase() + verdict.slice(1)}
+                <span class="n">{verdictCounts.get(verdict) ?? 0}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="controls">
+        <div class="viewtoggle" role="group" aria-label="View density">
+          <button type="button" data-view="list" aria-pressed="true">List</button>
+          <button type="button" data-view="cards" aria-pressed="false">Cards</button>
+        </div>
+        <select id="loc" aria-label="Filter by location">
+          <option value="all">Anywhere</option>
+          {locations.map((location) => <option value={location}>{location}</option>)}
+        </select>
+        <select id="sort" aria-label="Sort reviews">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="best">Best first</option>
+        </select>
+        <button class="reset" id="reset" type="button">Reset filters</button>
+      </div>
+      </div>
+    </div>
+
+    <!-- Individual review pages carry the searchable content; keeping the listing out of
+         Pagefind stops one giant index record shadowing every real review. -->
+    <div class="results as-list" id="results" data-pagefind-ignore hidden={reviews.length === 0}>
+      {years.map((year) => (
+        <>
+          <h2 class="year">{year}</h2>
+          {byYear.get(year)!.map((review) => {
+            const href = `/reviews/${review.id}/`;
+            const hasBody = Boolean(review.body?.trim());
+            const verdict = review.data.verdict ?? 'logged';
+            const byline = [review.data.creator, review.data.location].filter(Boolean);
+            return (
+              <>
+                {'\n'}
+                <article
+                  class="review"
+                  data-kind={review.data.kind}
+                  data-verdict={review.data.verdict ?? ''}
+                  data-location={review.data.location ?? ''}
+                  data-date={review.data.date.toISOString().slice(0, 10)}
+                  data-search={searchBlob(review)}
+                >
+                  {review.data.images.length > 0 ? (
+                    <a
+                      class="thumb"
+                      href={href}
+                      aria-label={`${review.data.title} — ${review.data.images.length} ${review.data.images.length === 1 ? 'photo' : 'photos'}`}
+                    >
+                      <Image
+                        src={review.data.images[0].src}
+                        alt={review.data.images[0].alt}
+                        width={640}
+                        height={360}
+                        loading="lazy"
+                      />
+                      {review.data.images.length > 1 && (
+                        <em class="more-n">+{review.data.images.length - 1}</em>
+                      )}
+                    </a>
+                  ) : (
+                    <span class="thumb initial" aria-hidden="true">{initial(review.data.title)}</span>
+                  )}
+                  <div class="r-body">
+                    <div class="r-top">
+                      <span class="kind">{kindLabels[review.data.kind].replace(/s$/, '')}</span>
+                      {review.data.verdict && (
+                        <span class="verdict" data-v={review.data.verdict}>
+                          {review.data.verdict[0].toUpperCase() + review.data.verdict.slice(1)}
+                        </span>
+                      )}
+                    </div>
+                    <h3><a href={href}>{review.data.title}</a></h3>
+                    {byline.length > 0 && (
+                      <p class="byline">
+                        {byline.map((value, i) => (
+                          <>
+                            {i > 0 && <span class="sep">·</span>}
+                            <span>{value}</span>
+                          </>
+                        ))}
+                      </p>
+                    )}
+                    {review.data.oneLiner && <p class="oneliner">{review.data.oneLiner}</p>}
+                    <div class="r-foot">
+                      {review.data.tags.length > 0 && (
+                        <ul class="tags">
+                          {review.data.tags.map((tag) => (
+                            <li><a href={`/reviews/?q=${encodeURIComponent(tag)}`}>{tag}</a></li>
+                          ))}
+                        </ul>
+                      )}
+                      <div class="r-meta">
+                        {hasBody && <a class="full" href={href}>Full review →</a>}
+                        <time class="when" datetime={review.data.date.toISOString().slice(0, 10)}>
+                          {dateLabel(review.data.date)}
+                        </time>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </>
+            );
+          })}
+        </>
+      ))}
+    </div>
+
+    <div class="empty" id="empty" hidden={reviews.length === 0}>
+      <p>Nothing matches that.</p>
+      <button class="chip" type="button" id="emptyReset">Clear all filters</button>
+    </div>
+
+    <div class:list={['showmore', { off: reviews.length <= 12 }]} id="showmore">
+      <button type="button" id="showmoreBtn">
+        Show {Math.min(Math.max(reviews.length - 12, 0), 12)} more
+      </button>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const results = document.getElementById('results');
+      if (!results) return;
+
+      const cards = Array.from(results.querySelectorAll('.review'));
+      const years = Array.from(results.querySelectorAll('.year'));
+      const q = document.getElementById('q');
+      const clearQ = document.getElementById('clearQ');
+      const loc = document.getElementById('loc');
+      const sort = document.getElementById('sort');
+      const count = document.getElementById('count');
+      const reset = document.getElementById('reset');
+      const empty = document.getElementById('empty');
+      const showmore = document.getElementById('showmore');
+      const showmoreBtn = document.getElementById('showmoreBtn');
+      const chips = Array.from(document.querySelectorAll('.chip[data-facet]'));
+      const viewBtns = Array.from(document.querySelectorAll('.viewtoggle button'));
+      const filters = document.querySelector('.filters');
+      const filterToggle = document.getElementById('filterToggle');
+      const filterBadge = document.getElementById('filterBadge');
+
+      function setCollapsed(collapsed) {
+        filters.dataset.collapsed = String(collapsed);
+        filterToggle.setAttribute('aria-expanded', String(!collapsed));
+      }
+      filterToggle.addEventListener('click', () => {
+        setCollapsed(filters.dataset.collapsed !== 'true');
+      });
+
+      const PAGE = 12;
+      const order = { loved: 0, liked: 1, fine: 2, nope: 3 };
+      const state = {
+        kind: 'all',
+        verdict: 'all',
+        loc: 'all',
+        q: '',
+        sort: 'new',
+        view: 'list',
+        limit: PAGE,
+      };
+      let sorted = cards.slice();
+
+      function readUrl() {
+        const p = new URLSearchParams(location.search);
+        const kindValues = chips
+          .filter((chip) => chip.dataset.facet === 'kind')
+          .map((chip) => chip.dataset.value);
+        const verdictValues = chips
+          .filter((chip) => chip.dataset.facet === 'verdict')
+          .map((chip) => chip.dataset.value);
+        const locValues = Array.from(loc.options).map((option) => option.value);
+        const kind = p.get('kind');
+        const verdict = p.get('verdict');
+        const locationValue = p.get('loc');
+        const sortValue = p.get('sort');
+        const view = p.get('view');
+
+        if (kindValues.includes(kind)) state.kind = kind;
+        if (verdictValues.includes(verdict)) state.verdict = verdict;
+        if (locValues.includes(locationValue)) state.loc = locationValue;
+        if (sortValue === 'old' || sortValue === 'best') state.sort = sortValue;
+        if (view === 'cards') state.view = view;
+        state.q = p.get('q') ?? '';
+
+        q.value = state.q;
+        loc.value = state.loc;
+        sort.value = state.sort;
+        results.className = `results as-${state.view}`;
+        viewBtns.forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.view === state.view));
+        });
+      }
+
+      function writeUrl() {
+        const p = new URLSearchParams();
+        if (state.kind !== 'all') p.set('kind', state.kind);
+        if (state.verdict !== 'all') p.set('verdict', state.verdict);
+        if (state.loc !== 'all') p.set('loc', state.loc);
+        if (state.q) p.set('q', state.q);
+        if (state.sort !== 'new') p.set('sort', state.sort);
+        if (state.view !== 'list') p.set('view', state.view);
+        const query = p.toString();
+        history.replaceState(null, '', query ? `?${query}` : location.pathname);
+      }
+
+      function reorder() {
+        sorted = cards.slice().sort((a, b) => {
+          const dateA = a.dataset.date;
+          const dateB = b.dataset.date;
+          if (state.sort === 'old') return dateA < dateB ? -1 : 1;
+          if (state.sort === 'best') {
+            const rankA = order[a.dataset.verdict] ?? 4;
+            const rankB = order[b.dataset.verdict] ?? 4;
+            const difference = rankA - rankB;
+            return difference !== 0 ? difference : (dateA > dateB ? -1 : 1);
+          }
+          return dateA > dateB ? -1 : 1;
+        });
+        sorted.forEach((card) => results.appendChild(card));
+        if (state.sort === 'best') {
+          years.forEach((year) => { year.hidden = true; });
+        } else {
+          const sequence = state.sort === 'old' ? years.slice().reverse() : years.slice();
+          sequence.forEach((year) => {
+            const value = year.textContent.trim();
+            const first = sorted.find((card) => card.dataset.date.slice(0, 4) === value);
+            if (first) results.insertBefore(year, first);
+          });
+        }
+      }
+
+      function apply() {
+        const needle = state.q.trim().toLowerCase();
+        const matched = [];
+
+        sorted.forEach((card) => {
+          const matches =
+            (state.kind === 'all' || card.dataset.kind === state.kind) &&
+            (state.verdict === 'all' || card.dataset.verdict === state.verdict) &&
+            (state.loc === 'all' || card.dataset.location.indexOf(state.loc) !== -1) &&
+            (!needle || card.dataset.search.indexOf(needle) !== -1 ||
+              card.textContent.toLowerCase().indexOf(needle) !== -1);
+          if (matches) matched.push(card);
+          card.hidden = true;
+        });
+
+        matched.slice(0, state.limit).forEach((card) => { card.hidden = false; });
+
+        if (state.sort !== 'best') {
+          years.forEach((year) => {
+            const value = year.textContent.trim();
+            year.hidden = !matched.slice(0, state.limit).some(
+              (card) => card.dataset.date.slice(0, 4) === value,
+            );
+          });
+        }
+
+        const shown = Math.min(matched.length, state.limit);
+        count.textContent = matched.length === cards.length
+          ? `${cards.length} reviews`
+          : `${matched.length} of ${cards.length}`;
+        empty.classList.toggle('on', matched.length === 0);
+
+        const left = matched.length - shown;
+        showmore.classList.toggle('off', left <= 0);
+        showmoreBtn.textContent = `Show ${Math.min(left, PAGE)} more`;
+
+        clearQ.classList.toggle('on', Boolean(state.q));
+        const dirty =
+          state.kind !== 'all' || state.verdict !== 'all' || state.loc !== 'all' || Boolean(state.q);
+        reset.classList.toggle('on', dirty);
+        // Badge counts facets only — an active search is already visible in the box.
+        const activeFacets = [state.kind, state.verdict, state.loc]
+          .filter((value) => value !== 'all').length;
+        filterBadge.hidden = activeFacets === 0;
+        filterBadge.textContent = String(activeFacets);
+        chips.forEach((chip) => {
+          chip.setAttribute(
+            'aria-pressed',
+            String(state[chip.dataset.facet] === chip.dataset.value),
+          );
+        });
+        writeUrl();
+      }
+
+      function refilter() {
+        state.limit = PAGE;
+        apply();
+      }
+
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const facet = chip.dataset.facet;
+          state[facet] = state[facet] === chip.dataset.value ? 'all' : chip.dataset.value;
+          refilter();
+        });
+      });
+      viewBtns.forEach((button) => {
+        button.addEventListener('click', () => {
+          state.view = button.dataset.view;
+          results.className = `results as-${state.view}`;
+          viewBtns.forEach((other) => {
+            other.setAttribute('aria-pressed', String(other === button));
+          });
+          apply();
+        });
+      });
+
+      q.addEventListener('input', () => {
+        state.q = q.value;
+        refilter();
+      });
+      clearQ.addEventListener('click', () => {
+        state.q = '';
+        q.value = '';
+        q.focus();
+        refilter();
+      });
+      loc.addEventListener('change', () => {
+        state.loc = loc.value;
+        refilter();
+      });
+      sort.addEventListener('change', () => {
+        state.sort = sort.value;
+        reorder();
+        refilter();
+      });
+      showmoreBtn.addEventListener('click', () => {
+        state.limit += PAGE;
+        apply();
+      });
+
+      function clearAll() {
+        state.kind = 'all';
+        state.verdict = 'all';
+        state.loc = 'all';
+        state.q = '';
+        q.value = '';
+        loc.value = 'all';
+        refilter();
+      }
+      reset.addEventListener('click', clearAll);
+      document.getElementById('emptyReset').addEventListener('click', clearAll);
+
+      readUrl();
+      // Collapsed by default; opens if the URL already carries a facet, so a shared
+      // filtered link shows what it is filtering by.
+      setCollapsed(state.kind === 'all' && state.verdict === 'all' && state.loc === 'all');
+      reorder();
+      apply();
+    })();
+  </script>
+</Base>

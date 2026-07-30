@@ -1,7 +1,16 @@
 ---
-// Data-driven from src/data/reading.json.
 import Base from '../layouts/Base.astro';
-import reading from '../data/reading.json';
+import { getShelf } from '../lib/reviews';
+
+const shelf = await getShelf();
+const reading = shelf.filter((book) => book.data.shelf === 'reading');
+const listening = shelf.filter((book) => book.data.shelf === 'listening');
+const finished = shelf.filter((book) => book.data.shelf === 'finished');
+
+// A review page only exists once there's a verdict, so an in-progress book points at its
+// canonical page instead. Finish it, add a verdict, and the link flips inward by itself.
+const shelfHref = (book: typeof shelf[number]) =>
+  book.data.verdict ? `/reviews/${book.id}/` : book.data.url;
 ---
 <Base title="Reading" description="What I'm reading and listening to, and what I've finished.">
   <p class="eyebrow">Bookshelf</p>
@@ -10,25 +19,37 @@ import reading from '../data/reading.json';
   <section aria-labelledby="reading-now">
     <p class="eyebrow" id="reading-now">Currently reading</p>
     <ul class="post-list">
-      {reading.current.map((b) => (
+      {reading.map((b) => (
         <li>
           <span>
-            {b.url ? <a class="quiet" href={b.url}>{b.title}</a> : b.title} — {b.author}
+            {shelfHref(b)
+              ? <a class="quiet" href={shelfHref(b)}>{b.data.title}</a>
+              : b.data.title} — {b.data.creator}
+            {b.data.verdict && b.data.url && (
+              <span class="tag-count"> · <a class="quiet" href={b.data.url}>source</a></span>
+            )}
           </span>
         </li>
       ))}
     </ul>
   </section>
 
-  {reading.listening?.length > 0 && (
+  {listening.length > 0 && (
     <section aria-labelledby="reading-listen">
       <p class="eyebrow" id="reading-listen">Currently listening</p>
       <ul class="post-list">
-        {reading.listening.map((b) => (
+        {listening.map((b) => (
           <li>
             <span>
-              {b.url ? <a class="quiet" href={b.url}>{b.title}</a> : b.title} — {b.author}
-              {b.narrator && <span class="tag-count"> · narrated by {b.narrator}</span>}
+              {shelfHref(b)
+                ? <a class="quiet" href={shelfHref(b)}>{b.data.title}</a>
+                : b.data.title} — {b.data.creator}
+              {b.data.facts.Narrator && (
+                <span class="tag-count"> · narrated by {b.data.facts.Narrator}</span>
+              )}
+              {b.data.verdict && b.data.url && (
+                <span class="tag-count"> · <a class="quiet" href={b.data.url}>source</a></span>
+              )}
             </span>
           </li>
         ))}
@@ -39,11 +60,16 @@ import reading from '../data/reading.json';
   <section aria-labelledby="reading-done">
     <p class="eyebrow" id="reading-done">Finished</p>
     <ul class="post-list">
-      {reading.finished.map((b) => (
+      {finished.map((b) => (
         <li>
-          <time>{b.year ?? ''}</time>
+          <time>{b.data.facts.Year ?? b.data.date.getUTCFullYear()}</time>
           <span>
-            {b.url ? <a class="quiet" href={b.url}>{b.title}</a> : b.title} — {b.author}
+            {shelfHref(b)
+              ? <a class="quiet" href={shelfHref(b)}>{b.data.title}</a>
+              : b.data.title} — {b.data.creator}
+            {b.data.verdict && b.data.url && (
+              <span class="tag-count"> · <a class="quiet" href={b.data.url}>source</a></span>
+            )}
           </span>
         </li>
       ))}

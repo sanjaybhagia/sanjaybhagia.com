@@ -9,6 +9,9 @@ oneLiner: My first sci-fi in a long time and an absolute delight — witty, appr
 tags:
   - sci-fi
   - fiction
+facts:
+  Format: Paper
+  Publisher: Del Rey
 shelf: finished
 ---
 

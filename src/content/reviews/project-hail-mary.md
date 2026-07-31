@@ -10,6 +10,7 @@ tags:
   - sci-fi
   - fiction
 facts:
+  Finished: March 2026
   Format: Paper
   Publisher: Del Rey
 shelf: finished

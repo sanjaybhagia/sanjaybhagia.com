@@ -1,9 +1,13 @@
 ---
 layout: ../layouts/MarkdownPage.astro
-title: Tools I use
-description: The tools I use for my work — consumer, hardware and developer tools.
+title: Uses
+description: The software, hardware and developer tools I actually use day to day — my desk setup, browsers, editors and everything in between.
 ---
-Here is the list of tools that I use for my work.
+The software, hardware and developer tools I actually use day to day.
+
+Looking for the ones I *built*? Those are my
+[Dev Utilities](/projects/dev-utilities/) — sixteen browser-based tools that
+run entirely on your machine.
 
 ### Consumer Tools
 - [1Password](https://1password.com/) - *Password Manager*

@@ -43,3 +43,7 @@
 /posts /blog/ 301
 /posts/* /blog/ 301
 /sitemap.xml /sitemap-index.xml 301
+
+# /tools was "tools I use"; renamed to /uses so "tools" means the Dev Utilities app
+/tools /uses/ 301
+/tools/ /uses/ 301

@@ -1,0 +1,67 @@
+---
+import fs from 'node:fs';
+import { imageSize } from 'image-size';
+import Base from '../../layouts/Base.astro';
+
+const shot = {
+  src: '/images/projects/dev-utilities.webp',
+  alt: 'Dev Utilities — the tool grid, with JSON, encoding, generator and converter tools',
+  ...imageSize(fs.readFileSync('./public/images/projects/dev-utilities.webp')),
+};
+---
+<Base
+  title="Dev Utilities"
+  description="Sixteen browser-based developer tools — JSON diff and format, JWT decode, hashes, QR codes, cron parsing and more. Nothing leaves your machine."
+>
+  <p class="eyebrow">Web App</p>
+  <h1>Dev Utilities</h1>
+  <p class="lede">
+    The small tools you reach for a dozen times a day, in one fast interface —
+    and none of them send your data anywhere.
+  </p>
+
+  <div class="cta-row">
+    <a class="btn" href="https://tools.sanjaybhagia.com">Open Dev Utilities</a>
+  </div>
+
+  <section aria-labelledby="du-shot">
+    <p class="eyebrow" id="du-shot">A look</p>
+    <p class="shot-wide">
+      <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" />
+    </p>
+  </section>
+
+  <section aria-labelledby="du-why">
+    <p class="eyebrow" id="du-why">Why</p>
+    <div class="prose">
+      <p>
+        Every developer has a handful of these bookmarked: a JSON formatter, a
+        Base64 decoder, something to check what's inside a JWT. Most of them are
+        ad-choked pages that quietly POST whatever you paste to a server you
+        know nothing about — which is a genuinely bad habit when the thing you
+        pasted is a token from production.
+      </p>
+      <p>
+        These run entirely in your browser. No account, no upload, no request
+        leaves your machine. They also work offline once loaded, and there's a
+        command palette on <code>⌘K</code> so you never have to hunt for the
+        right one.
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="du-tools">
+    <p class="eyebrow" id="du-tools">What's in it</p>
+    <div class="prose">
+      <ul>
+        <li><strong>JSON</strong> — compare two documents line by line, pretty-print or minify, infer a JSON Schema</li>
+        <li><strong>Encode / decode</strong> — Base64, HTML entities, URL tools, and a JWT decoder</li>
+        <li><strong>Generators</strong> — hashes, strong passwords, QR codes, UUIDs</li>
+        <li><strong>Converters</strong> — colour formats, cron expressions, CSV to iCal, JSON to CSV, number bases, timestamps</li>
+      </ul>
+      <p>Free, no ads, no tracking.</p>
+    </div>
+  </section>
+
+  <p class="more-link"><a class="quiet" href="/projects/">← All projects</a></p>
+</Base>

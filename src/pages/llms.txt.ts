@@ -20,7 +20,7 @@ export const GET: APIRoute = async () => {
     '',
     '- [About](https://sanjaybhagia.com/about): Who Sanjay is and what he works on',
     '- [Now](https://sanjaybhagia.com/now): What he is focused on right now',
-    '- [Tools](https://sanjaybhagia.com/tools): The tools he uses',
+    '- [Uses](https://sanjaybhagia.com/uses): The tools, apps and hardware he uses',
     '- [ParkingQuest](https://sanjaybhagia.com/projects/parkingquest): iOS app — live Park&Ride occupancy for Sydney commuters',
     '- [Calendar on Your Wall](https://sanjaybhagia.com/projects/calendar-on-your-wall): Web app — printable yearly calendars with your events',
     '',

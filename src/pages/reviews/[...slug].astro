@@ -40,6 +40,7 @@ if (review.data.url && !urlAlreadyPresent) facts.push(['Link', review.data.url])
   title={review.data.title}
   description={review.data.oneLiner ?? `${kindLabel} review by Sanjay Bhagia.`}
   image={`/og/reviews/${review.id}.png`}
+  markdown={`/reviews/${review.id}.md`}
 >
   <article class="detail" data-pagefind-body>
     <div class="detail-wrap">

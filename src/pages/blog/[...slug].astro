@@ -71,6 +71,7 @@ const postLd = {
   title={post.data.title}
   description={post.data.description}
   image={post.data.image ?? `/og/${post.id}.png`}
+  markdown={`/blog/${post.id}.md`}
 >
   <script type="application/ld+json" set:html={JSON.stringify(postLd)} />
   <article class:list={['post', { 'has-toc': hasToc }]} data-pagefind-body>

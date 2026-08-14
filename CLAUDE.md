@@ -55,6 +55,11 @@ command. Reviews go to `src/content/reviews/<slug>.md` on a branch + PR, never s
 - `src/components/Analytics.astro` — Cloudflare Web Analytics, dormant until a
   beacon token is pasted in.
 - RSS at `/rss.xml` AND `/feed.xml` (legacy subscriber path) — keep both.
+- AI-agent surface: `/llms.txt` (index incl. reviews) + `/llms-full.txt` (all post
+  bodies), and a markdown variant of every page at `<path>.md` (`/blog/<slug>.md`,
+  `/reviews/<slug>.md`, `/about.md`, …) advertised via `<link rel="alternate"
+  type="text/markdown">`. New root `src/pages/*.md` pages get theirs automatically
+  via `src/pages/[page].md.ts`.
 - Design system lives entirely in `src/styles/global.css` (custom, no theme).
 
 ## Verification

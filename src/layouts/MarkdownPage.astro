@@ -3,7 +3,11 @@ import Base from './Base.astro';
 
 const { frontmatter } = Astro.props;
 ---
-<Base title={frontmatter.title} description={frontmatter.description}>
+<Base
+  title={frontmatter.title}
+  description={frontmatter.description}
+  markdown={`${Astro.url.pathname.replace(/\/$/, '')}.md`}
+>
   <div class="page-narrow" data-pagefind-body>
     <h1>{frontmatter.title}</h1>
     <div class="prose">

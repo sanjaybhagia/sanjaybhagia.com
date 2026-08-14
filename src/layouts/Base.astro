@@ -7,6 +7,8 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  /** Path of this page's markdown variant (e.g. `/blog/foo.md`), if it has one. */
+  markdown?: string;
 }
 
 const siteTitle = "Sanjay Bhagia";
@@ -14,6 +16,7 @@ const {
   title,
   description = "The personal blog of Sanjay Bhagia — .NET, Azure, CI/CD and technology in general.",
   image,
+  markdown,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · ${siteTitle}` : `${siteTitle} — Building things, writing them down`;
@@ -46,6 +49,9 @@ const current = (prefix: string) =>
       href="/reviews/rss.xml"
     />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {markdown && (
+      <link rel="alternate" type="text/markdown" title="Markdown version" href={new URL(markdown, Astro.site)} />
+    )}
     <meta property="og:title" content={title ?? siteTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={new URL(path, Astro.site)} />

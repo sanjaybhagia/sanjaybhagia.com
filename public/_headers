@@ -3,4 +3,11 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Link: </llms.txt>; rel="llms-txt"
+  Link: </llms.txt>; rel="describedby"; type="text/markdown"
+
+# Static hosting types .txt as text/plain; these are markdown, and the
+# Link header above says so — keep them consistent.
+/llms.txt
+  Content-Type: text/markdown; charset=utf-8
+/llms-full.txt
+  Content-Type: text/markdown; charset=utf-8

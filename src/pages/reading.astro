@@ -7,6 +7,17 @@ const reading = shelf.filter((book) => book.data.shelf === 'reading');
 const listening = shelf.filter((book) => book.data.shelf === 'listening');
 const finished = shelf.filter((book) => book.data.shelf === 'finished');
 
+// Group finished books under one year heading each (same pattern as the blog
+// index) — a per-row year stacks above every title on mobile and reads like a
+// duplicated heading when consecutive books share a year.
+const finishedByYear = new Map<number, typeof shelf>();
+for (const book of finished) {
+  const year = Number(book.data.facts.Year ?? book.data.date.getUTCFullYear());
+  if (!finishedByYear.has(year)) finishedByYear.set(year, []);
+  finishedByYear.get(year)!.push(book);
+}
+const finishedYears = [...finishedByYear.keys()].sort((a, b) => b - a);
+
 // A review page only exists once there's a verdict, so an in-progress book points at its
 // canonical page instead. Finish it, add a verdict, and the link flips inward by itself.
 const shelfHref = (book: typeof shelf[number]) =>
@@ -59,20 +70,24 @@ const shelfHref = (book: typeof shelf[number]) =>
 
   <section aria-labelledby="reading-done">
     <p class="eyebrow" id="reading-done">Finished</p>
-    <ul class="post-list">
-      {finished.map((b) => (
-        <li>
-          <time>{b.data.facts.Year ?? b.data.date.getUTCFullYear()}</time>
-          <span>
-            {shelfHref(b)
-              ? <a class="quiet" href={shelfHref(b)}>{b.data.title}</a>
-              : b.data.title} — {b.data.creator}
-            {b.data.verdict && b.data.url && (
-              <span class="tag-count"> · <a class="quiet" href={b.data.url}>source</a></span>
-            )}
-          </span>
-        </li>
-      ))}
-    </ul>
+    {finishedYears.map((year) => (
+      <>
+        <p class="year">{year}</p>
+        <ul class="post-list">
+          {finishedByYear.get(year)!.map((b) => (
+            <li>
+              <span>
+                {shelfHref(b)
+                  ? <a class="quiet" href={shelfHref(b)}>{b.data.title}</a>
+                  : b.data.title} — {b.data.creator}
+                {b.data.verdict && b.data.url && (
+                  <span class="tag-count"> · <a class="quiet" href={b.data.url}>source</a></span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))}
   </section>
 </Base>

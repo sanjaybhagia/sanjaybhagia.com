@@ -7,5 +7,7 @@ url: https://www.goodreads.com/book/show/44767458-dune
 tags:
   - sci-fi
   - fiction
+facts:
+  Format: paper
 shelf: reading
 ---

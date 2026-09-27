@@ -5,7 +5,7 @@ description: Sanjay Bhagia — Cloud Solutions Architect & Developer in Sydney, 
 ---
 My name is Sanjay Bhagia and I am based in Sydney, Australia. I'm working at [Inauro](https://www.inauro.io) as a Cloud Solutions Architect & Developer. Here, I'm helping Inauro build an IoT (Internet of Things) SaaS Platform called [Perspio](https://www.perspio.io).
 
-On the side I build my own apps: [ParkingQuest](/projects/parkingquest/), which puts live Park&Ride availability on Sydney commuters' Lock Screens, and [Calendar on Your Wall](/projects/calendar-on-your-wall/), for printing yearly calendars with your own events on them. You can see what I'm focused on at the moment on my [now page](/now/).
+On the side I build my own apps: [Trvlrr](/projects/trvlrr/), a private travel journal that keeps every trip you've ever taken; [ParkingQuest](/projects/parkingquest/), which puts live Park&Ride availability on Sydney commuters' Lock Screens; [MyRecipes2u](/projects/myrecipes2u/), which turns shared Reels and TikToks into a family cookbook; and [Calendar on Your Wall](/projects/calendar-on-your-wall/), for printing yearly calendars with your own events on them. You can see what I'm focused on at the moment on my [now page](/now/).
 
 I'm also a published author. You can check my course on [Cloud Computing Fundamentals](https://www.educative.io/courses/cloud-computing-fundamentals) over at [Educative](https://www.educative.io/)
 

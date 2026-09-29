@@ -30,6 +30,7 @@ export const GET: APIRoute = async () => {
     '- [About](https://sanjaybhagia.com/about): Who Sanjay is and what he works on',
     '- [Now](https://sanjaybhagia.com/now): What he is focused on right now',
     '- [Uses](https://sanjaybhagia.com/uses): The tools, apps and hardware he uses',
+    '- [Worthbase](https://sanjaybhagia.com/projects/worthbase): Web app — a household balance sheet your AI keeps for you via MCP: assets, debts and goals priced daily',
     '- [ParkingQuest](https://sanjaybhagia.com/projects/parkingquest): iOS app — live Park&Ride occupancy for Sydney commuters',
     '- [Trvlrr](https://sanjaybhagia.com/projects/trvlrr): iOS app — a private travel journal: plan trips ahead, keep the ones behind, find any memory by describing it',
     '- [MyRecipes2u](https://sanjaybhagia.com/projects/myrecipes2u): Share a Reel, TikTok or YouTube video and it becomes a clean, cookable recipe in your family\'s shared cookbook',

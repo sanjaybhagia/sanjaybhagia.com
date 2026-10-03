@@ -1,3 +1,8 @@
+# Google Search Console fetches the verification file at the exact .html URL
+# and won't follow redirects; Pages' pretty-URL feature would 308 it, so
+# rewrite (200) to the extensionless path instead.
+/google4b25d7ddba021ac0.html /google4b25d7ddba021ac0 200
+
 # Old Wyam URL scheme → new /blog/slug URLs (301 = signals transfer for SEO)
 /2023/10/10/handling-order-processing-with-azure-api-servicebus-topics%20copy /blog/handling-order-processing-with-azure-api-servicebus-topics/ 301
 /:year/:month/:day/:slug /blog/:slug/ 301
